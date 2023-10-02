@@ -1,0 +1,52 @@
+project_name: garminstatus
+
+builds:
+  -
+    binary: "{{.ProjectName}}-{{.Os}}-{{.Arch}}"
+    main: main.go
+    ldflags:
+      - '-s -w -X github.com/tamcore/garminstatus.Version={{.Version}}'
+    goos:
+      - windows
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    env:
+      - CGO_ENABLED=0
+    no_unique_dist_dir: true
+
+archives:
+  - 
+    id: tar
+    format: tar.gz
+    name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
+
+checksum:
+  name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
+  algorithm: sha256
+
+kos:
+-
+  main: .
+  working_dir: .
+
+  repository: ghcr.io/tamcore/{{.ProjectName}}
+  platforms:
+  - linux/amd64
+  - linux/arm64
+
+  tags:
+  - latest
+  - '{{.Tag}}'
+
+  sbom: none
+
+  bare: true
+
+gomod:
+  proxy: false
+
+release:
+  draft: false
