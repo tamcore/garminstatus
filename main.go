@@ -31,11 +31,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// Initialize a map to store the service status information
-	serviceStatus := make(map[string]string)
+	// Initialize maps to store the service status information for "Platforms" and "Features"
+	platforms := make(map[string]string)
+	features := make(map[string]string)
 
-	// Find all elements with class "service"
-	doc.Find(".service").Each(func(index int, item *goquery.Selection) {
+	// Find the div element with id "platforms" and extract its services
+	doc.Find("#platforms .service").Each(func(index int, item *goquery.Selection) {
 		// Extract service name and status class
 		serviceName := strings.TrimSpace(item.Find(".item").Text())
 		statusClass, _ := item.Attr("class")
@@ -48,11 +49,35 @@ func main() {
 			status = "down"
 		}
 
-		// Store the service status in the map
-		serviceStatus[serviceName] = status
+		// Store the service status in the "Platforms" map
+		platforms[serviceName] = status
 	})
 
-	// Convert the service status map to JSON
+	// Find the div element with id "features" and extract its services
+	doc.Find("#features .service").Each(func(index int, item *goquery.Selection) {
+		// Extract service name and status class
+		serviceName := strings.TrimSpace(item.Find(".item").Text())
+		statusClass, _ := item.Attr("class")
+
+		// Determine the service status based on the status class
+		status := "unknown"
+		if strings.Contains(statusClass, "green") {
+			status = "up"
+		} else if strings.Contains(statusClass, "red") {
+			status = "down"
+		}
+
+		// Store the service status in the "Features" map
+		features[serviceName] = status
+	})
+
+	// Create a map to store the categorized service status
+	serviceStatus := map[string]map[string]string{
+		"Platforms": platforms,
+		"Features":  features,
+	}
+
+	// Convert the categorized service status map to JSON
 	jsonData, err := json.Marshal(serviceStatus)
 	if err != nil {
 		log.Fatal(err)
