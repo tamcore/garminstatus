@@ -10,6 +10,30 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
+// ExtractServices extracts services from a specific category using the provided selector.
+func ExtractServices(doc *goquery.Document, category string, selector string) map[string]string {
+	services := make(map[string]string)
+
+	doc.Find(selector).Each(func(index int, item *goquery.Selection) {
+		// Extract service name and status class
+		serviceName := strings.TrimSpace(item.Find(".item").Text())
+		statusClass, _ := item.Attr("class")
+
+		// Determine the service status based on the status class
+		status := "unknown"
+		if strings.Contains(statusClass, "green") {
+			status = "up"
+		} else if strings.Contains(statusClass, "red") {
+			status = "down"
+		}
+
+		// Store the service status in the map
+		services[serviceName] = status
+	})
+
+	return services
+}
+
 func main() {
 	// Define the URL to fetch
 	url := "https://status.garminconnectweb.workers.dev/garmin-connect-status-content.html"
@@ -31,45 +55,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// Initialize maps to store the service status information for "Platforms" and "Features"
-	platforms := make(map[string]string)
-	features := make(map[string]string)
-
-	// Find the div element with id "platforms" and extract its services
-	doc.Find("#platforms .service").Each(func(index int, item *goquery.Selection) {
-		// Extract service name and status class
-		serviceName := strings.TrimSpace(item.Find(".item").Text())
-		statusClass, _ := item.Attr("class")
-
-		// Determine the service status based on the status class
-		status := "unknown"
-		if strings.Contains(statusClass, "green") {
-			status = "up"
-		} else if strings.Contains(statusClass, "red") {
-			status = "down"
-		}
-
-		// Store the service status in the "Platforms" map
-		platforms[serviceName] = status
-	})
-
-	// Find the div element with id "features" and extract its services
-	doc.Find("#features .service").Each(func(index int, item *goquery.Selection) {
-		// Extract service name and status class
-		serviceName := strings.TrimSpace(item.Find(".item").Text())
-		statusClass, _ := item.Attr("class")
-
-		// Determine the service status based on the status class
-		status := "unknown"
-		if strings.Contains(statusClass, "green") {
-			status = "up"
-		} else if strings.Contains(statusClass, "red") {
-			status = "down"
-		}
-
-		// Store the service status in the "Features" map
-		features[serviceName] = status
-	})
+	// Extract services from "Platforms" and "Features" categories using the ExtractServices function
+	platforms := ExtractServices(doc, "Platforms", "#platforms .service")
+	features := ExtractServices(doc, "Features", "#features .service")
 
 	// Create a map to store the categorized service status
 	serviceStatus := map[string]map[string]string{
