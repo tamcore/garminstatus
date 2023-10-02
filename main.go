@@ -122,7 +122,7 @@ func updateMetricsOnce(status garminstatus.GarminStatus) {
 
     // Set Prometheus metrics for platform and feature statuses
     for service, s := range status.Platforms {
-        if s == garminstatus.Up {
+        if s.Status == garminstatus.Up {
             platformStatus.WithLabelValues(service).Set(1)
         } else {
             platformStatus.WithLabelValues(service).Set(0)
@@ -130,7 +130,7 @@ func updateMetricsOnce(status garminstatus.GarminStatus) {
     }
 
     for service, s := range status.Features {
-        if s == garminstatus.Up {
+        if s.Status == garminstatus.Up {
             featureStatus.WithLabelValues(service).Set(1)
         } else {
             featureStatus.WithLabelValues(service).Set(0)

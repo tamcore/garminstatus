@@ -22,8 +22,14 @@ const (
 	GarminConnectStatusURI = "https://status.garminconnectweb.workers.dev/garmin-connect-status-content.html"
 )
 
+// ServiceInfo represents the status and reasons for a service.
+type ServiceInfo struct {
+	Status       ServiceStatus `json:"status"`
+	StatusReason []string      `json:"status_reason,omitempty"`
+}
+
 // ServiceMap represents a map of service names to their statuses.
-type ServiceMap map[string]ServiceStatus
+type ServiceMap map[string]ServiceInfo
 
 // GarminStatus represents the status of Garmin services.
 type GarminStatus struct {
@@ -78,8 +84,21 @@ func extractServices(doc *goquery.Document, selector string) ServiceMap {
 			status = Up
 		}
 
-		// Store the service status in the map
-		services[serviceName] = status
+		// Extract status reasons if present
+		statusReasons := []string{}
+		item.Find(".status-reasons").Each(func(i int, reasonItem *goquery.Selection) {
+			reason := strings.TrimSpace(reasonItem.Text())
+			if reason != "" {
+				statusReasons = append(statusReasons, reason)
+			}
+		})
+
+		// Store the service status and reasons in the map
+		serviceInfo := ServiceInfo{
+			Status:       status,
+			StatusReason: statusReasons,
+		}
+		services[serviceName] = serviceInfo
 	})
 
 	return services
