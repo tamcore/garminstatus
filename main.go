@@ -5,12 +5,9 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"net/http"
-
-    "github.com/prometheus/client_golang/prometheus/promhttp"
 
 	"github.com/tamcore/garminstatus/pkg/garminstatus"
-	"github.com/tamcore/garminstatus/pkg/metrics"
+	"github.com/tamcore/garminstatus/pkg/http"
 )
 
 var (
@@ -26,37 +23,7 @@ func init() {
 
 func main() {
 	if serveHTTP {
-		// Start an HTTP server if the -http flag is provided
-		http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-			// Fetch Garmin service status on each request when serving via HTTP
-			status, err := garminstatus.FetchStatus()
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
-			}
-
-			// Convert the status to JSON
-			jsonData, err := json.Marshal(status)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
-			}
-
-			w.Header().Set("Content-Type", "application/json")
-			w.Write(jsonData)
-		})
-		metricsHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			metrics.UpdateMetrics()
-			promhttp.Handler().ServeHTTP(w, r)
-		})
-
-		// Expose a Prometheus /metrics endpoint with the custom handler
-		http.HandleFunc("/metrics", func(w http.ResponseWriter, r *http.Request) {
-			metricsHandler.ServeHTTP(w, r)
-		})
-
-		fmt.Println("Starting HTTP server on port", httpPort)
-		err := http.ListenAndServe(fmt.Sprintf(":%d", httpPort), nil)
+		err := http.ServeHTTP(httpPort)
 		if err != nil {
 			log.Fatal(err)
 		}
