@@ -4,69 +4,19 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"net/http"
-	"strings"
 
-	"github.com/PuerkitoBio/goquery"
+	"github.com/tamcore/garminstatus/pkg/garminstatus"
 )
 
-// ExtractServices extracts services from a specific category using the provided selector.
-func ExtractServices(doc *goquery.Document, category string, selector string) map[string]string {
-	services := make(map[string]string)
-
-	doc.Find(selector).Each(func(index int, item *goquery.Selection) {
-		// Extract service name and status class
-		serviceName := strings.TrimSpace(item.Find(".item").Text())
-		statusClass, _ := item.Attr("class")
-
-		// Determine the service status based on the status class
-		status := "unknown"
-		if strings.Contains(statusClass, "green") {
-			status = "up"
-		} else if strings.Contains(statusClass, "red") {
-			status = "down"
-		}
-
-		// Store the service status in the map
-		services[serviceName] = status
-	})
-
-	return services
-}
-
 func main() {
-	// Define the URL to fetch
-	url := "https://status.garminconnectweb.workers.dev/garmin-connect-status-content.html"
-
-	// Fetch the HTML content from the URL
-	resp, err := http.Get(url)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		log.Fatalf("HTTP request failed with status code: %d", resp.StatusCode)
-	}
-
-	// Parse the HTML content with goquery
-	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	// Fetch Garmin service status
+	status, err := garminstatus.FetchStatus()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	// Extract services from "Platforms" and "Features" categories using the ExtractServices function
-	platforms := ExtractServices(doc, "Platforms", "#platforms .service")
-	features := ExtractServices(doc, "Features", "#features .service")
-
-	// Create a map to store the categorized service status
-	serviceStatus := map[string]map[string]string{
-		"Platforms": platforms,
-		"Features":  features,
-	}
-
-	// Convert the categorized service status map to JSON
-	jsonData, err := json.Marshal(serviceStatus)
+	// Convert the status to JSON
+	jsonData, err := json.Marshal(status)
 	if err != nil {
 		log.Fatal(err)
 	}
