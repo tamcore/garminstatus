@@ -5,6 +5,7 @@ go 1.21.1
 require (
 	github.com/PuerkitoBio/goquery v1.8.1
 	github.com/prometheus/client_golang v1.17.0
+	github.com/tamcore/go-healthcheck v0.0.0-20231003181156-520e154b5d3b
 )
 
 require (

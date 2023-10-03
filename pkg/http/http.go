@@ -8,6 +8,7 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 
+	"github.com/tamcore/garminstatus/pkg/healthcheck"
 	"github.com/tamcore/garminstatus/pkg/garminstatus"
 	"github.com/tamcore/garminstatus/pkg/metrics"
 )
@@ -37,10 +38,15 @@ func ServeHTTP(port int) error {
 		promhttp.Handler().ServeHTTP(w, r)
 	})
 
+
 	// Expose a Prometheus /metrics endpoint with the custom handler
 	http.HandleFunc("/metrics", func(w http.ResponseWriter, r *http.Request) {
 		metricsHandler.ServeHTTP(w, r)
 	})
+
+	healthHandler := healthcheck.Setup()
+	http.HandleFunc("/ready", healthHandler.ReadyEndpoint)
+	http.HandleFunc("/live", healthHandler.LiveEndpoint)
 
 	fmt.Println("Starting HTTP server on port", port)
 	err := http.ListenAndServe(fmt.Sprintf(":%d", port), logRequest(http.DefaultServeMux))
