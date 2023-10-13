@@ -1,13 +1,13 @@
 package healthcheck
 
 import (
-	"time"
 	"net/url"
+	"time"
 
+	"github.com/tamcore/garminstatus/pkg/garminstatus"
 	"github.com/tamcore/go-healthcheck"
 	"github.com/tamcore/go-healthcheck/checks/dns"
 	"github.com/tamcore/go-healthcheck/checks/goroutine"
-	"github.com/tamcore/garminstatus/pkg/garminstatus"
 )
 
 func Setup() healthcheck.Handler {
