@@ -3,13 +3,15 @@ package http
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
+	"os"
+
+	"github.com/gorilla/handlers"
 
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 
-	"github.com/tamcore/garminstatus/pkg/healthcheck"
 	"github.com/tamcore/garminstatus/pkg/garminstatus"
+	"github.com/tamcore/garminstatus/pkg/healthcheck"
 	"github.com/tamcore/garminstatus/pkg/metrics"
 )
 
@@ -38,7 +40,6 @@ func ServeHTTP(port int) error {
 		promhttp.Handler().ServeHTTP(w, r)
 	})
 
-
 	// Expose a Prometheus /metrics endpoint with the custom handler
 	http.HandleFunc("/metrics", func(w http.ResponseWriter, r *http.Request) {
 		metricsHandler.ServeHTTP(w, r)
@@ -49,16 +50,9 @@ func ServeHTTP(port int) error {
 	http.HandleFunc("/live", healthHandler.LiveEndpoint)
 
 	fmt.Println("Starting HTTP server on port", port)
-	err := http.ListenAndServe(fmt.Sprintf(":%d", port), logRequest(http.DefaultServeMux))
+	err := http.ListenAndServe(fmt.Sprintf(":%d", port), handlers.CombinedLoggingHandler(os.Stdout, http.DefaultServeMux))
 	if err != nil {
 		return fmt.Errorf("Failed to start HTTP server: %v", err)
 	}
 	return nil
-}
-
-func logRequest(handler http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("%s %s %s\n", r.RemoteAddr, r.Method, r.URL)
-		handler.ServeHTTP(w, r)
-	})
 }
