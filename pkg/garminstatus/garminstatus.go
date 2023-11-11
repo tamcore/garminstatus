@@ -1,9 +1,11 @@
 package garminstatus
 
 import (
+	"context"
 	"log"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -37,10 +39,21 @@ type GarminStatus struct {
 	Features  ServiceMap `json:"Features"`
 }
 
+var httpClient = &http.Client{
+	Timeout: time.Second * 10,
+}
+
 // FetchStatus fetches the Garmin service status and returns it as a GarminStatus struct.
 func FetchStatus() (GarminStatus, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
 	// Fetch the HTML content from the URL
-	resp, err := http.Get(GarminConnectStatusURI)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, GarminConnectStatusURI, http.NoBody)
+	if err != nil {
+		log.Fatal(err)
+	}
+	resp, err := httpClient.Do(req)
 	if err != nil {
 		log.Fatal(err)
 	}

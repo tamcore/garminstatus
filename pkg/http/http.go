@@ -3,11 +3,12 @@ package http
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/gorilla/handlers"
-
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 
 	"github.com/tamcore/garminstatus/pkg/garminstatus"
@@ -33,7 +34,10 @@ func ServeHTTP(port int) error {
 		}
 
 		w.Header().Set("Content-Type", "application/json")
-		w.Write(jsonData)
+		_, err = w.Write(jsonData)
+		if err != nil {
+			log.Fatal(err)
+		}
 	})
 	metricsHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		metrics.UpdateMetrics()
@@ -49,10 +53,16 @@ func ServeHTTP(port int) error {
 	http.HandleFunc("/ready", healthHandler.ReadyEndpoint)
 	http.HandleFunc("/live", healthHandler.LiveEndpoint)
 
+	httpServer := &http.Server{
+		Addr:              fmt.Sprintf(":%d", port),
+		ReadHeaderTimeout: 3 * time.Second,
+		Handler:           handlers.CombinedLoggingHandler(os.Stdout, http.DefaultServeMux),
+	}
+
 	fmt.Println("Starting HTTP server on port", port)
-	err := http.ListenAndServe(fmt.Sprintf(":%d", port), handlers.CombinedLoggingHandler(os.Stdout, http.DefaultServeMux))
+	err := httpServer.ListenAndServe()
 	if err != nil {
-		return fmt.Errorf("Failed to start HTTP server: %v", err)
+		return fmt.Errorf("failed to start http server: %w", err)
 	}
 	return nil
 }

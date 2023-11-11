@@ -55,24 +55,16 @@ func updateMetricsOnce(status garminstatus.GarminStatus) {
 
 	// Set Prometheus metrics for platform and feature statuses
 	for service, s := range status.Platforms {
-		if s.Status == garminstatus.Up {
-			platformStatus.WithLabelValues(service).Set(1)
-		} else {
-			platformStatus.WithLabelValues(service).Set(0)
-		}
+		platformStatus.WithLabelValues(service).Set(mapStatusToFloat(s.Status))
 	}
 
 	for service, s := range status.Features {
-		if s.Status == garminstatus.Up {
-			featureStatus.WithLabelValues(service).Set(1)
-		} else {
-			featureStatus.WithLabelValues(service).Set(0)
-		}
+		featureStatus.WithLabelValues(service).Set(mapStatusToFloat(s.Status))
 	}
 }
 
 // mapStatusToFloat maps Garmin service status to float values (1: up, 0: down).
-func mapStatusToFloat(status garminstatus.ServiceStatus) int {
+func mapStatusToFloat(status garminstatus.ServiceStatus) float64 {
 	if status == garminstatus.Up {
 		return 1
 	}
