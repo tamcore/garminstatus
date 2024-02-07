@@ -1,6 +1,6 @@
 module github.com/tamcore/garminstatus
 
-go 1.21.7
+go 1.22.0
 
 require (
 	github.com/PuerkitoBio/goquery v1.8.1
