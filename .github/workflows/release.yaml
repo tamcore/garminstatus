@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Clone repo
-        uses: actions/checkout@v4.1.0
+        uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0
 
@@ -23,10 +23,10 @@ jobs:
         with:
           go-version-file: 'go.mod'
 
-      - uses: ko-build/setup-ko@v0.6
+      - uses: ko-build/setup-ko@v0.7
 
       - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v5
+        uses: goreleaser/goreleaser-action@v6
         with:
           version: latest
           args: release --clean
