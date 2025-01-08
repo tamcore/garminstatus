@@ -21,7 +21,7 @@ const (
 	Down ServiceStatus = "down"
 
 	// Garmin Connect status page
-	GarminConnectStatusURI = "https://status.garminconnectweb.workers.dev/garmin-connect-status-content.html"
+	GarminConnectStatusURI = "https://connect.garmin.com/site-status/garmin-connect-status-content.html"
 )
 
 // ServiceInfo represents the status and reasons for a service.
