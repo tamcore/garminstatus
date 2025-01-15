@@ -23,7 +23,7 @@ jobs:
         with:
           go-version-file: 'go.mod'
 
-      - uses: ko-build/setup-ko@v0.7
+      - uses: ko-build/setup-ko@v0.8
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
