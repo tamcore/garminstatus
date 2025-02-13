@@ -5,7 +5,7 @@ go 1.23
 toolchain go1.23.4
 
 require (
-	github.com/PuerkitoBio/goquery v1.10.1
+	github.com/PuerkitoBio/goquery v1.10.2
 	github.com/gorilla/handlers v1.5.2
 	github.com/prometheus/client_golang v1.20.5
 	github.com/tamcore/go-healthcheck v0.1.1
@@ -21,7 +21,7 @@ require (
 	github.com/prometheus/client_model v0.6.1 // indirect
 	github.com/prometheus/common v0.61.0 // indirect
 	github.com/prometheus/procfs v0.15.1 // indirect
-	golang.org/x/net v0.34.0 // indirect
-	golang.org/x/sys v0.29.0 // indirect
+	golang.org/x/net v0.35.0 // indirect
+	golang.org/x/sys v0.30.0 // indirect
 	google.golang.org/protobuf v1.36.2 // indirect
 )
