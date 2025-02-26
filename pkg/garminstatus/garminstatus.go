@@ -2,7 +2,7 @@ package garminstatus
 
 import (
 	"context"
-	"log"
+	"fmt"
 	"net/http"
 	"strings"
 	"time"
@@ -51,16 +51,16 @@ func FetchStatus() (GarminStatus, error) {
 	// Fetch the HTML content from the URL
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, GarminConnectStatusURI, http.NoBody)
 	if err != nil {
-		log.Fatal(err)
+		return GarminStatus{}, fmt.Errorf("Error creating request: %w", err)
 	}
 	resp, err := httpClient.Do(req)
 	if err != nil {
-		log.Fatal(err)
+		return GarminStatus{}, fmt.Errorf("Error during http request: %w", err)
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return GarminStatus{}, err
+		return GarminStatus{}, fmt.Errorf("Invalid response status code: %d", resp.StatusCode)
 	}
 
 	// Parse the HTML content with goquery
