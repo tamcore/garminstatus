@@ -51,16 +51,18 @@ func FetchStatus() (GarminStatus, error) {
 	// Fetch the HTML content from the URL
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, GarminConnectStatusURI, http.NoBody)
 	if err != nil {
-		return GarminStatus{}, fmt.Errorf("Error creating request: %w", err)
+		return GarminStatus{}, fmt.Errorf("error creating request: %w", err)
 	}
 	resp, err := httpClient.Do(req)
 	if err != nil {
-		return GarminStatus{}, fmt.Errorf("Error during http request: %w", err)
+		return GarminStatus{}, fmt.Errorf("error during http request: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() {
+		_ = resp.Body.Close()
+	}()
 
 	if resp.StatusCode != http.StatusOK {
-		return GarminStatus{}, fmt.Errorf("Invalid response status code: %d", resp.StatusCode)
+		return GarminStatus{}, fmt.Errorf("invalid response status code: %d", resp.StatusCode)
 	}
 
 	// Parse the HTML content with goquery
