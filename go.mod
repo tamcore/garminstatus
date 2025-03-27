@@ -5,7 +5,7 @@ go 1.24
 require (
 	github.com/PuerkitoBio/goquery v1.10.2
 	github.com/gorilla/handlers v1.5.2
-	github.com/prometheus/client_golang v1.21.0
+	github.com/prometheus/client_golang v1.21.1
 	github.com/tamcore/go-healthcheck v0.1.1
 )
 
