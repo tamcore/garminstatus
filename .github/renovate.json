@@ -3,5 +3,8 @@
   "extends": [
     "github>tamcore/renovate",
     "github>tamcore/renovate:go"
-  ]
+  ],
+  "automergeType": "pr",
+  "platformAutomerge": false,
+  "ignoreTests": false
 }
