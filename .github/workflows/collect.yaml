@@ -7,6 +7,11 @@ on:
   schedule:
     - cron: '*/5 * * * *'
   workflow_dispatch:
+    inputs:
+      heartbeat:
+        description: 'Force a record after this long with no status change (e.g. 3h, 1s)'
+        required: false
+        default: '3h'
 
 permissions:
   contents: write
@@ -27,7 +32,7 @@ jobs:
           go-version-file: 'go.mod'
 
       - name: Record snapshot
-        run: go run . snapshot
+        run: go run . snapshot --heartbeat "${{ github.event.inputs.heartbeat || '3h' }}"
 
       - name: Rebuild status data (only if the change-log changed)
         run: |

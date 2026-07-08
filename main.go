@@ -13,6 +13,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"sort"
 	"time"
 
 	"github.com/tamcore/garminstatus/pkg/garminstatus"
@@ -98,6 +99,7 @@ func runSnapshot(args []string) error {
 	if err != nil {
 		return err
 	}
+	printStatusSummary(status)
 
 	last, ok, err := store.Last(*data)
 	if err != nil {
@@ -147,6 +149,38 @@ func runBuild(args []string) error {
 	fmt.Printf("wrote %s (%d platforms, %d features, %d incidents)\n",
 		*out, len(status.Services.Platforms), len(status.Services.Features), len(status.Incidents))
 	return nil
+}
+
+// printStatusSummary logs what was gathered from Garmin: per-category counts
+// and any services currently reported down.
+func printStatusSummary(status garminstatus.GarminStatus) {
+	pUp, pDown, pDownNames := summarize(status.Platforms)
+	fUp, fDown, fDownNames := summarize(status.Features)
+	fmt.Printf("fetched Garmin status: platforms %d up / %d down, features %d up / %d down\n",
+		pUp, pDown, fUp, fDown)
+	down := append(pDownNames, fDownNames...)
+	if len(down) == 0 {
+		fmt.Println("  all services operational")
+		return
+	}
+	for _, name := range down {
+		fmt.Printf("  DOWN: %s\n", name)
+	}
+}
+
+// summarize counts up/down services in a map and returns the down service names
+// (sorted).
+func summarize(m garminstatus.ServiceMap) (up, down int, downNames []string) {
+	for name, info := range m {
+		if info.Status == garminstatus.Up {
+			up++
+			continue
+		}
+		down++
+		downNames = append(downNames, name)
+	}
+	sort.Strings(downNames)
+	return up, down, downNames
 }
 
 func dir(path string) string {
