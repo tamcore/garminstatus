@@ -120,7 +120,7 @@ type dayAcc struct {
 }
 
 func services(tl map[string][]event, dataThrough time.Time) []Service {
-	out := []Service{}
+	out := make([]Service, 0, len(tl))
 	for _, name := range serviceNames(tl) {
 		evs := tl[name]
 		acc := map[string]*dayAcc{}
