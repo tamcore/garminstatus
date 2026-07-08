@@ -12,8 +12,9 @@ func up(name string) garminstatus.ServiceMap {
 	return garminstatus.ServiceMap{name: {Status: garminstatus.Up}}
 }
 
-func down(name string, reasons ...string) garminstatus.ServiceMap {
-	return garminstatus.ServiceMap{name: {Status: garminstatus.Down, StatusReason: reasons}}
+// down builds a single-service map for service "A" in the down state.
+func down(reasons ...string) garminstatus.ServiceMap {
+	return garminstatus.ServiceMap{"A": {Status: garminstatus.Down, StatusReason: reasons}}
 }
 
 func TestAppendAndReadAll(t *testing.T) {
@@ -62,7 +63,7 @@ func TestLast(t *testing.T) {
 	}
 	t0 := time.Date(2026, 1, 10, 0, 0, 0, 0, time.UTC)
 	_ = Append(path, Snapshot{TS: t0, Kind: KindChange, Platforms: up("A")})
-	_ = Append(path, Snapshot{TS: t0.Add(time.Hour), Kind: KindChange, Platforms: down("A")})
+	_ = Append(path, Snapshot{TS: t0.Add(time.Hour), Kind: KindChange, Platforms: down()})
 	last, ok, err := Last(path)
 	if err != nil || !ok {
 		t.Fatalf("Last: ok=%v err=%v", ok, err)
@@ -84,7 +85,7 @@ func TestDecide(t *testing.T) {
 	})
 
 	t.Run("status change writes change", func(t *testing.T) {
-		last := &Snapshot{TS: now.Add(-time.Minute), Platforms: down("A"), Features: garminstatus.ServiceMap{}}
+		last := &Snapshot{TS: now.Add(-time.Minute), Platforms: down(), Features: garminstatus.ServiceMap{}}
 		rec, write := Decide(last, cur, now, 3*time.Hour)
 		if !write || rec.Kind != KindChange {
 			t.Fatalf("expected change write, got write=%v kind=%v", write, rec.Kind)
@@ -92,8 +93,8 @@ func TestDecide(t *testing.T) {
 	})
 
 	t.Run("reason-only change does not write", func(t *testing.T) {
-		last := &Snapshot{TS: now.Add(-time.Minute), Platforms: down("A", "old reason"), Features: garminstatus.ServiceMap{}}
-		curDown := garminstatus.GarminStatus{Platforms: down("A", "new reason"), Features: garminstatus.ServiceMap{}}
+		last := &Snapshot{TS: now.Add(-time.Minute), Platforms: down("old reason"), Features: garminstatus.ServiceMap{}}
+		curDown := garminstatus.GarminStatus{Platforms: down("new reason"), Features: garminstatus.ServiceMap{}}
 		_, write := Decide(last, curDown, now, 3*time.Hour)
 		if write {
 			t.Fatal("reason-only change should not write")

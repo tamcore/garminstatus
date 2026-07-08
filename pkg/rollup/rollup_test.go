@@ -9,8 +9,17 @@ import (
 	"github.com/tamcore/garminstatus/pkg/store"
 )
 
-func svc(name string, s garminstatus.ServiceStatus, reasons ...string) garminstatus.ServiceMap {
-	return garminstatus.ServiceMap{name: {Status: s, StatusReason: reasons}}
+// svc builds a single-service platform map for service "A".
+func svc(s garminstatus.ServiceStatus, reasons ...string) garminstatus.ServiceMap {
+	return garminstatus.ServiceMap{"A": {Status: s, StatusReason: reasons}}
+}
+
+// ef is an empty features map.
+func ef() garminstatus.ServiceMap { return garminstatus.ServiceMap{} }
+
+// snap is a terse Snapshot builder for platform-only test cases.
+func snap(ts time.Time, k store.Kind, p garminstatus.ServiceMap) store.Snapshot {
+	return store.Snapshot{TS: ts, Kind: k, Platforms: p, Features: ef()}
 }
 
 func TestBuildEmpty(t *testing.T) {
@@ -28,9 +37,9 @@ func TestBuildDailyUpFracAndIncident(t *testing.T) {
 	// Arrange: A up at d1 00:00, down at d1 12:00 (reason "x"), up again d2 00:00.
 	d1 := time.Date(2026, 1, 10, 0, 0, 0, 0, time.UTC)
 	snaps := []store.Snapshot{
-		{TS: d1, Kind: store.KindChange, Platforms: svc("A", garminstatus.Up), Features: garminstatus.ServiceMap{}},
-		{TS: d1.Add(12 * time.Hour), Kind: store.KindChange, Platforms: svc("A", garminstatus.Down, "x"), Features: garminstatus.ServiceMap{}},
-		{TS: d1.AddDate(0, 0, 1), Kind: store.KindChange, Platforms: svc("A", garminstatus.Up), Features: garminstatus.ServiceMap{}},
+		snap(d1, store.KindChange, svc(garminstatus.Up)),
+		snap(d1.Add(12*time.Hour), store.KindChange, svc(garminstatus.Down, "x")),
+		snap(d1.AddDate(0, 0, 1), store.KindChange, svc(garminstatus.Up)),
 	}
 
 	// Act
@@ -77,11 +86,11 @@ func TestBuildDropsShortNoiseIncident(t *testing.T) {
 	// the incident list, while a multi-hour outage is kept.
 	d1 := time.Date(2026, 1, 10, 0, 0, 0, 0, time.UTC)
 	snaps := []store.Snapshot{
-		{TS: d1, Kind: store.KindChange, Platforms: svc("A", garminstatus.Up), Features: garminstatus.ServiceMap{}},
-		{TS: d1.Add(1 * time.Hour), Kind: store.KindChange, Platforms: svc("A", garminstatus.Down), Features: garminstatus.ServiceMap{}},
-		{TS: d1.Add(1*time.Hour + 3*time.Minute), Kind: store.KindChange, Platforms: svc("A", garminstatus.Up), Features: garminstatus.ServiceMap{}},
-		{TS: d1.Add(5 * time.Hour), Kind: store.KindChange, Platforms: svc("A", garminstatus.Down), Features: garminstatus.ServiceMap{}},
-		{TS: d1.Add(9 * time.Hour), Kind: store.KindChange, Platforms: svc("A", garminstatus.Up), Features: garminstatus.ServiceMap{}},
+		snap(d1, store.KindChange, svc(garminstatus.Up)),
+		snap(d1.Add(1*time.Hour), store.KindChange, svc(garminstatus.Down)),
+		snap(d1.Add(1*time.Hour+3*time.Minute), store.KindChange, svc(garminstatus.Up)),
+		snap(d1.Add(5*time.Hour), store.KindChange, svc(garminstatus.Down)),
+		snap(d1.Add(9*time.Hour), store.KindChange, svc(garminstatus.Up)),
 	}
 	got := Build(snaps)
 	if len(got.Incidents) != 1 {
@@ -95,9 +104,9 @@ func TestBuildDropsShortNoiseIncident(t *testing.T) {
 func TestBuildHeartbeatDoesNotSplitIncident(t *testing.T) {
 	d1 := time.Date(2026, 1, 10, 0, 0, 0, 0, time.UTC)
 	snaps := []store.Snapshot{
-		{TS: d1, Kind: store.KindChange, Platforms: svc("A", garminstatus.Down), Features: garminstatus.ServiceMap{}},
-		{TS: d1.Add(3 * time.Hour), Kind: store.KindHeartbeat, Platforms: svc("A", garminstatus.Down), Features: garminstatus.ServiceMap{}},
-		{TS: d1.Add(6 * time.Hour), Kind: store.KindHeartbeat, Platforms: svc("A", garminstatus.Down), Features: garminstatus.ServiceMap{}},
+		snap(d1, store.KindChange, svc(garminstatus.Down)),
+		snap(d1.Add(3*time.Hour), store.KindHeartbeat, svc(garminstatus.Down)),
+		snap(d1.Add(6*time.Hour), store.KindHeartbeat, svc(garminstatus.Down)),
 	}
 	got := Build(snaps)
 	if len(got.Incidents) != 1 {
@@ -111,8 +120,8 @@ func TestBuildHeartbeatDoesNotSplitIncident(t *testing.T) {
 func TestBuildUnsortedInputIsSorted(t *testing.T) {
 	d1 := time.Date(2026, 1, 10, 0, 0, 0, 0, time.UTC)
 	snaps := []store.Snapshot{
-		{TS: d1.Add(time.Hour), Kind: store.KindChange, Platforms: svc("A", garminstatus.Down), Features: garminstatus.ServiceMap{}},
-		{TS: d1, Kind: store.KindChange, Platforms: svc("A", garminstatus.Up), Features: garminstatus.ServiceMap{}},
+		snap(d1.Add(time.Hour), store.KindChange, svc(garminstatus.Down)),
+		snap(d1, store.KindChange, svc(garminstatus.Up)),
 	}
 	got := Build(snaps)
 	if !got.DataThrough.Equal(d1.Add(time.Hour)) {
