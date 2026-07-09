@@ -1,9 +1,10 @@
+// Package http serves the daemon's observability endpoints: Prometheus metrics
+// and liveness/readiness probes. Metrics are updated by the daemon loop, not on
+// scrape, so this server only exposes the current registry.
 package http
 
 import (
-	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"time"
@@ -11,58 +12,28 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 
-	"github.com/tamcore/garminstatus/pkg/garminstatus"
 	"github.com/tamcore/garminstatus/pkg/healthcheck"
-	"github.com/tamcore/garminstatus/pkg/metrics"
 )
 
-func ServeHTTP(port int) error {
-	// Start an HTTP server if the -http flag is provided
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		// Fetch Garmin service status on each request when serving via HTTP
-		status, err := garminstatus.FetchStatus()
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
+// Serve starts the HTTP server on addr (e.g. ":8080") and blocks. It exposes
+// /metrics, /live and /ready.
+func Serve(addr string) error {
+	mux := http.NewServeMux()
+	mux.Handle("/metrics", promhttp.Handler())
 
-		// Convert the status to JSON
-		jsonData, err := json.Marshal(status)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
+	health := healthcheck.Setup()
+	mux.HandleFunc("/ready", health.ReadyEndpoint)
+	mux.HandleFunc("/live", health.LiveEndpoint)
 
-		w.Header().Set("Content-Type", "application/json")
-		_, err = w.Write(jsonData)
-		if err != nil {
-			log.Fatal(err)
-		}
-	})
-	metricsHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		metrics.UpdateMetrics()
-		promhttp.Handler().ServeHTTP(w, r)
-	})
-
-	// Expose a Prometheus /metrics endpoint with the custom handler
-	http.HandleFunc("/metrics", func(w http.ResponseWriter, r *http.Request) {
-		metricsHandler.ServeHTTP(w, r)
-	})
-
-	healthHandler := healthcheck.Setup()
-	http.HandleFunc("/ready", healthHandler.ReadyEndpoint)
-	http.HandleFunc("/live", healthHandler.LiveEndpoint)
-
-	httpServer := &http.Server{
-		Addr:              fmt.Sprintf(":%d", port),
+	server := &http.Server{
+		Addr:              addr,
 		ReadHeaderTimeout: 3 * time.Second,
-		Handler:           handlers.CombinedLoggingHandler(os.Stdout, http.DefaultServeMux),
+		Handler:           handlers.CombinedLoggingHandler(os.Stdout, mux),
 	}
 
-	fmt.Println("Starting HTTP server on port", port)
-	err := httpServer.ListenAndServe()
-	if err != nil {
-		return fmt.Errorf("failed to start http server: %w", err)
+	fmt.Println("serving metrics/health on", addr)
+	if err := server.ListenAndServe(); err != nil {
+		return fmt.Errorf("http server: %w", err)
 	}
 	return nil
 }

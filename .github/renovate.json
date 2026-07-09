@@ -2,6 +2,16 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "github>tamcore/renovate",
-    "github>tamcore/renovate:go"
+    "github>tamcore/renovate:go",
+    "github>tamcore/renovate:automerge-minor",
+    "github>tamcore/renovate:automerge-github-actions"
+  ],
+  "automergeType": "pr",
+  "packageRules": [
+    {
+      "description": "Use PR-type automerge for github-actions too, so GitHub auto-merge waits for the required CI check (branch protection on master is the gate).",
+      "matchManagers": ["github-actions"],
+      "automergeType": "pr"
+    }
   ]
 }

@@ -5,7 +5,7 @@ builds:
     binary: "{{.ProjectName}}-{{.Os}}-{{.Arch}}"
     main: main.go
     ldflags:
-      - '-s -w -X github.com/tamcore/garminstatus.Version={{.Version}}'
+      - '-s -w -X main.Version={{.Version}}'
     goos:
       - windows
       - linux
@@ -18,7 +18,7 @@ builds:
     no_unique_dist_dir: true
 
 archives:
-  - 
+  -
     id: tar
     format: tar.gz
     name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
@@ -28,22 +28,18 @@ checksum:
   algorithm: sha256
 
 kos:
--
-  main: .
-  working_dir: .
-
-  repository: ghcr.io/tamcore/{{.ProjectName}}
-  platforms:
-  - linux/amd64
-  - linux/arm64
-
-  tags:
-  - latest
-  - '{{.Tag}}'
-
-  sbom: none
-
-  bare: true
+  -
+    main: .
+    working_dir: .
+    repository: ghcr.io/tamcore/{{.ProjectName}}
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    tags:
+      - latest
+      - '{{.Tag}}'
+    sbom: none
+    bare: true
 
 gomod:
   proxy: false

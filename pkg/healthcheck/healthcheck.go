@@ -1,3 +1,4 @@
+// Package healthcheck wires liveness and readiness probes for the daemon.
 package healthcheck
 
 import (
@@ -12,10 +13,12 @@ import (
 	"github.com/tamcore/garminstatus/pkg/garminstatus"
 )
 
+// Setup returns a health handler with a DNS readiness check on the upstream
+// Garmin host and a goroutine-leak liveness check.
 func Setup() healthcheck.Handler {
 	handler := healthcheck.NewHandler()
 
-	// Add a readiness check to make sure an upstream dependency resolves in DNS.
+	// Readiness: the upstream dependency must resolve in DNS.
 	handler.AddReadinessCheck("upstream-dep-dns", dns.Resolve(func() string {
 		u, err := url.Parse(garminstatus.GarminConnectStatusURI)
 		if err != nil {
@@ -24,7 +27,7 @@ func Setup() healthcheck.Handler {
 		return u.Hostname()
 	}(), 50*time.Millisecond))
 
-	// Add a liveness check to detect Goroutine leaks. If this fails we want to be restarted/rescheduled.
+	// Liveness: detect goroutine leaks; a failure triggers a restart.
 	handler.AddLivenessCheck("goroutine-threshold", goroutine.Count(100))
 
 	return handler
