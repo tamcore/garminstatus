@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Garmin Status — unofficial uptime history</title>
+  <meta name="description" content="Unofficial Garmin Connect status page with 180 days of uptime history." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%A1%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <header class="masthead">
+    <div class="masthead__inner">
+      <div class="brand">
+        <span class="brand__dot" id="brandDot"></span>
+        <span class="brand__name">GARMIN&nbsp;STATUS</span>
+        <span class="brand__tag">unofficial</span>
+      </div>
+      <div class="masthead__meta" id="lastChecked">—</div>
+    </div>
+  </header>
+
+  <main class="wrap" id="app" aria-live="polite">
+    <section class="hero" id="hero">
+      <div class="hero__pulse" id="heroPulse"></div>
+      <div class="hero__text">
+        <h1 class="hero__headline" id="heroHeadline">Loading status…</h1>
+        <p class="hero__sub" id="heroSub">Fetching the last 180 days of uptime history.</p>
+      </div>
+    </section>
+
+    <div id="sections"></div>
+
+    <section class="incidents" id="incidentsSection" hidden>
+      <h2 class="section__title">Recent incidents</h2>
+      <ol class="incident-list" id="incidentList"></ol>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>
+      Not affiliated with Garmin. Data is scraped from Garmin's public status page and
+      aggregated automatically. Uptime is reconstructed from recorded status transitions.
+    </p>
+    <p class="foot__span" id="footSpan"></p>
+  </footer>
+
+  <div class="tip" id="tip" role="tooltip" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
