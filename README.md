@@ -15,19 +15,34 @@ minutes and publishes the result to GitHub over an SSH deploy key, using three b
 
 ## How it works
 
-```
- k8s daemon (every 5 min)                      GitHub
- ────────────────────────                      ─────────────────────────────
- FetchStatus() ───────────────────────────────▶ data     : snapshots.jsonl (append on change + 3h heartbeat)
- rollup.Build (generated = now) ── force-push ─▶ gh-pages : site + data/status.json (1 rolling commit)
- expose /metrics /live /ready  ◀── Prometheus scrape
+```mermaid
+flowchart LR
+    G["Garmin status page<br/>(public)"]
+    VM[("VictoriaMetrics")]
+
+    subgraph daemon["k8s daemon · every 5 min"]
+        direction TB
+        F["fetch status"] --> B["rollup.Build"]
+    end
+
+    D[["data branch<br/>snapshots.jsonl"]]
+    P[["gh-pages branch<br/>site + status.json"]]
+    Pages["GitHub Pages"]
+    U(["visitors"])
+
+    G -->|scrape| F
+    B -->|"append (on change / 3h heartbeat)"| D
+    B -->|"fast-forward commit (on change / heartbeat)"| P
+    P --> Pages --> U
+    F -.->|"/metrics /live /ready"| VM
 ```
 
-- The `data` branch grows only when a service's status actually changes (plus a periodic
+- The `data` branch grows only when a service's status changes (plus a periodic
   heartbeat), so its history stays meaningful and small.
-- The `gh-pages` branch is rewritten as a single rolling commit each cycle with
-  `status.json.generated = now`, so the page's "updated X ago" always reflects the last
-  check — and GitHub Pages serves the branch directly (no publish workflow to stall).
+- The `gh-pages` branch gets a normal **fast-forward** commit whenever the change-log
+  advances, with `status.json.generated` stamped at publish time. GitHub Pages serves the
+  branch directly and each build completes — a force-pushed rolling commit would be
+  orphaned mid-build and never publish.
 - Uptime is reconstructed by time-weighted integration between recorded transitions.
 
 ## Commands
