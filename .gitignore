@@ -1,0 +1,5 @@
+# Local, private operational notes — never committed (see AGENTS.md).
+/AGENTS.md.local
+
+# Local build artifacts
+/dist/
