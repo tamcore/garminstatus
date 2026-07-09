@@ -53,12 +53,30 @@ func seedRemote(t *testing.T) string {
 	if _, err := w.Commit("seed", &git.CommitOptions{Author: testSig(), AllowEmptyCommits: true}); err != nil {
 		t.Fatalf("seed commit: %v", err)
 	}
+	// seed gh-pages (orphan) so publishPages can clone it
+	if err := r.Storer.SetReference(
+		plumbing.NewSymbolicReference(plumbing.HEAD, plumbing.NewBranchReferenceName(pagesBranch)),
+	); err != nil {
+		t.Fatalf("set HEAD gh-pages: %v", err)
+	}
+	if err := os.WriteFile(filepath.Join(work, "index.html"), []byte("seed"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := w.Add("index.html"); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := w.Commit("seed gh-pages", &git.CommitOptions{Author: testSig()}); err != nil {
+		t.Fatalf("seed gh-pages commit: %v", err)
+	}
 	rem, err := r.CreateRemote(&config.RemoteConfig{Name: originRemote, URLs: []string{url}})
 	if err != nil {
 		t.Fatal(err)
 	}
 	if err := rem.Push(&git.PushOptions{
-		RefSpecs: []config.RefSpec{config.RefSpec("refs/heads/data:refs/heads/data")},
+		RefSpecs: []config.RefSpec{
+			config.RefSpec("refs/heads/data:refs/heads/data"),
+			config.RefSpec("refs/heads/gh-pages:refs/heads/gh-pages"),
+		},
 	}); err != nil {
 		t.Fatalf("seed push: %v", err)
 	}

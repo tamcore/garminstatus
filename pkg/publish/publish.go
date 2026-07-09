@@ -40,6 +40,8 @@ type Publisher struct {
 	workDir   string
 	heartbeat time.Duration
 
+	published bool // whether gh-pages has been published at least once this run
+
 	// injectable for tests
 	fetch func() (garminstatus.GarminStatus, error)
 	now   func() time.Time
@@ -83,12 +85,17 @@ func (p *Publisher) Cycle() error {
 	}
 	metrics.UpdateStatus(status)
 
-	snaps, err := p.syncData(status)
+	snaps, wrote, err := p.syncData(status)
 	if err != nil {
 		return err
 	}
-	if err := p.publishPages(snaps); err != nil {
-		return err
+	// Publish gh-pages only when the change-log advanced (or on the first run),
+	// so builds are stable fast-forwards and commits stay bounded.
+	if wrote || !p.published {
+		if err := p.publishPages(snaps); err != nil {
+			return err
+		}
+		p.published = true
 	}
 	metrics.RecordCycle()
 	return nil
@@ -96,23 +103,23 @@ func (p *Publisher) Cycle() error {
 
 // syncData pulls the data branch, appends a record if warranted, pushes, and
 // returns the full change-log for rendering.
-func (p *Publisher) syncData(status garminstatus.GarminStatus) ([]store.Snapshot, error) {
+func (p *Publisher) syncData(status garminstatus.GarminStatus) ([]store.Snapshot, bool, error) {
 	dir := filepath.Join(p.workDir, "data")
 	repo, err := p.openOrClone(dir, dataBranch)
 	if err != nil {
 		metrics.RecordSync(dataBranch, "pull", err)
-		return nil, fmt.Errorf("open data branch: %w", err)
+		return nil, false, fmt.Errorf("open data branch: %w", err)
 	}
 	if err := p.pull(repo, dataBranch); err != nil {
 		metrics.RecordSync(dataBranch, "pull", err)
-		return nil, fmt.Errorf("pull data branch: %w", err)
+		return nil, false, fmt.Errorf("pull data branch: %w", err)
 	}
 	metrics.RecordSync(dataBranch, "pull", nil)
 
 	path := filepath.Join(dir, dataRelPath)
 	snaps, err := store.ReadAll(path)
 	if err != nil {
-		return nil, err
+		return nil, false, err
 	}
 	var last *store.Snapshot
 	if n := len(snaps); n > 0 {
@@ -120,36 +127,47 @@ func (p *Publisher) syncData(status garminstatus.GarminStatus) ([]store.Snapshot
 	}
 	rec, write := store.Decide(last, status, p.now(), p.heartbeat)
 	if !write {
-		return snaps, nil
+		return snaps, false, nil
 	}
 	if err := store.Append(path, rec); err != nil {
-		return nil, err
+		return nil, false, err
 	}
 	snaps = append(snaps, rec)
 
 	if err := p.commitAndPush(repo, dataBranch, dataRelPath,
 		fmt.Sprintf("chore(data): %s snapshot", rec.Kind)); err != nil {
 		metrics.RecordSync(dataBranch, "push", err)
-		return nil, fmt.Errorf("push data branch: %w", err)
+		return nil, false, fmt.Errorf("push data branch: %w", err)
 	}
 	metrics.RecordSync(dataBranch, "push", nil)
-	return snaps, nil
+	return snaps, true, nil
 }
 
 // publishPages renders status.json (generated=now) plus the embedded site
-// assets into a fresh single-commit tree and force-pushes it to gh-pages.
+// assets onto the gh-pages branch as a normal fast-forward commit. Normal
+// (non-force) commits keep each commit reachable so GitHub Pages branch builds
+// complete — a force-pushed rolling commit gets orphaned mid-build and the
+// page never updates.
 func (p *Publisher) publishPages(snaps []store.Snapshot) error {
 	st := rollup.Build(snaps)
-	st.Generated = p.now().UTC() // "last checked" — always fresh
+	st.Generated = p.now().UTC() // "last checked" at publish time
 	body, err := json.MarshalIndent(st, "", "  ")
 	if err != nil {
 		return err
 	}
 
 	dir := filepath.Join(p.workDir, "pages")
-	if err := os.RemoveAll(dir); err != nil {
-		return err
+	repo, err := p.openOrClone(dir, pagesBranch)
+	if err != nil {
+		metrics.RecordSync(pagesBranch, "pull", err)
+		return fmt.Errorf("open gh-pages branch: %w", err)
 	}
+	if err := p.pull(repo, pagesBranch); err != nil {
+		metrics.RecordSync(pagesBranch, "pull", err)
+		return fmt.Errorf("pull gh-pages branch: %w", err)
+	}
+	metrics.RecordSync(pagesBranch, "pull", nil)
+
 	if err := os.MkdirAll(filepath.Join(dir, "data"), 0o755); err != nil {
 		return err
 	}
@@ -167,10 +185,6 @@ func (p *Publisher) publishPages(snaps []store.Snapshot) error {
 		return err
 	}
 
-	repo, err := git.PlainInit(dir, false)
-	if err != nil {
-		return err
-	}
 	w, err := repo.Worktree()
 	if err != nil {
 		return err
@@ -181,19 +195,11 @@ func (p *Publisher) publishPages(snaps []store.Snapshot) error {
 	if _, err := w.Commit("publish status page", &git.CommitOptions{Author: p.sig()}); err != nil {
 		return err
 	}
-	if _, err := repo.CreateRemote(&config.RemoteConfig{Name: originRemote, URLs: []string{p.repoURL}}); err != nil {
-		return err
-	}
-	head, err := repo.Head()
-	if err != nil {
-		return err
-	}
-	rs := config.RefSpec(fmt.Sprintf("+%s:refs/heads/%s", head.Name().String(), pagesBranch))
 	err = repo.Push(&git.PushOptions{
-		RemoteName: originRemote,
-		RefSpecs:   []config.RefSpec{rs},
-		Force:      true,
-		Auth:       p.auth,
+		Auth: p.auth,
+		RefSpecs: []config.RefSpec{
+			config.RefSpec(fmt.Sprintf("refs/heads/%s:refs/heads/%s", pagesBranch, pagesBranch)),
+		},
 	})
 	if err != nil && err != git.NoErrAlreadyUpToDate {
 		metrics.RecordSync(pagesBranch, "push", err)
