@@ -2,6 +2,16 @@
    One dark field, monospace data, semantic status accents. */
 
 :root {
+  /* non-color tokens (theme-independent) */
+  --mono: ui-monospace, "SF Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, system-ui, sans-serif;
+  --radius: 10px;
+  --maxw: 980px;
+}
+
+/* Dark theme — the default, and when explicitly selected. */
+:root,
+:root[data-theme="dark"] {
   --bg:        #0a0e14;
   --bg-2:      #0f141d;
   --panel:     #121824;
@@ -21,11 +31,72 @@
 
   --accent:  #3ba9ff;
 
-  --mono: ui-monospace, "SF Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, system-ui, sans-serif;
+  --masthead-a: rgba(10, 14, 20, 0.92);
+  --masthead-b: rgba(10, 14, 20, 0.62);
+  --tip-bg:     #05070b;
+  --glow-1:     rgba(59, 169, 255, 0.10);
+  --glow-2:     rgba(46, 204, 113, 0.06);
+  --grid-opacity: 0.5;
+}
 
-  --radius: 10px;
-  --maxw: 980px;
+/* Light theme, when explicitly selected. */
+:root[data-theme="light"] {
+  --bg:        #f5f7fb;
+  --bg-2:      #eceff5;
+  --panel:     #ffffff;
+  --panel-2:   #f3f6fb;
+  --line:      #d7dee9;
+  --line-soft: #e6ebf3;
+  --text:      #111825;
+  --text-dim:  #55617a;
+  --text-faint:#8894a8;
+
+  --up:      #1f9d55;
+  --up-glow: rgba(31, 157, 85, 0.30);
+  --partial: #cf8412;
+  --down:    #d83a48;
+  --down-glow: rgba(216, 58, 72, 0.28);
+  --empty:   #e2e8f1;
+
+  --accent:  #2478d4;
+
+  --masthead-a: rgba(255, 255, 255, 0.92);
+  --masthead-b: rgba(255, 255, 255, 0.60);
+  --tip-bg:     #ffffff;
+  --glow-1:     rgba(36, 120, 212, 0.08);
+  --glow-2:     rgba(31, 157, 85, 0.05);
+  --grid-opacity: 0.6;
+}
+
+/* Auto (no explicit choice) follows the OS preference. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --bg:        #f5f7fb;
+    --bg-2:      #eceff5;
+    --panel:     #ffffff;
+    --panel-2:   #f3f6fb;
+    --line:      #d7dee9;
+    --line-soft: #e6ebf3;
+    --text:      #111825;
+    --text-dim:  #55617a;
+    --text-faint:#8894a8;
+
+    --up:      #1f9d55;
+    --up-glow: rgba(31, 157, 85, 0.30);
+    --partial: #cf8412;
+    --down:    #d83a48;
+    --down-glow: rgba(216, 58, 72, 0.28);
+    --empty:   #e2e8f1;
+
+    --accent:  #2478d4;
+
+    --masthead-a: rgba(255, 255, 255, 0.92);
+    --masthead-b: rgba(255, 255, 255, 0.60);
+    --tip-bg:     #ffffff;
+    --glow-1:     rgba(36, 120, 212, 0.08);
+    --glow-2:     rgba(31, 157, 85, 0.05);
+    --grid-opacity: 0.6;
+  }
 }
 
 * { box-sizing: border-box; }
@@ -49,12 +120,12 @@ body { min-height: 100vh; position: relative; overflow-x: hidden; }
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(1200px 620px at 78% -8%, rgba(59, 169, 255, 0.10), transparent 60%),
-    radial-gradient(900px 500px at 8% 110%, rgba(46, 204, 113, 0.06), transparent 55%),
+    radial-gradient(1200px 620px at 78% -8%, var(--glow-1), transparent 60%),
+    radial-gradient(900px 500px at 8% 110%, var(--glow-2), transparent 55%),
     linear-gradient(var(--line-soft) 1px, transparent 1px) 0 0 / 100% 44px,
     linear-gradient(90deg, var(--line-soft) 1px, transparent 1px) 0 0 / 44px 100%;
   mask-image: linear-gradient(180deg, #000 0%, #000 40%, transparent 92%);
-  opacity: 0.5;
+  opacity: var(--grid-opacity);
 }
 
 .wrap { position: relative; z-index: 1; max-width: var(--maxw); margin: 0 auto; padding: 0 20px 64px; }
@@ -63,7 +134,7 @@ body { min-height: 100vh; position: relative; overflow-x: hidden; }
 .masthead {
   position: sticky; top: 0; z-index: 5;
   backdrop-filter: blur(10px);
-  background: linear-gradient(180deg, rgba(10, 14, 20, 0.92), rgba(10, 14, 20, 0.62));
+  background: linear-gradient(180deg, var(--masthead-a), var(--masthead-b));
   border-bottom: 1px solid var(--line);
 }
 .masthead__inner {
@@ -204,7 +275,7 @@ body { min-height: 100vh; position: relative; overflow-x: hidden; }
 /* Tooltip ------------------------------------------------------------- */
 .tip {
   position: fixed; z-index: 20; pointer-events: none;
-  background: #05070b; border: 1px solid var(--line);
+  background: var(--tip-bg); border: 1px solid var(--line);
   border-radius: 7px; padding: 7px 10px; font-family: var(--mono); font-size: 11.5px;
   color: var(--text); box-shadow: 0 8px 26px rgba(0,0,0,.5);
   transform: translate(-50%, -120%); white-space: nowrap;
@@ -237,4 +308,46 @@ body { min-height: 100vh; position: relative; overflow-x: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
+}
+
+/* Masthead right cluster + theme toggle -------------------------------- */
+.masthead__right { display: flex; align-items: center; gap: 14px; }
+.theme-toggle {
+  display: inline-flex; border: 1px solid var(--line); border-radius: 999px;
+  overflow: hidden; background: var(--panel);
+}
+.theme-toggle button {
+  appearance: none; border: 0; background: transparent; cursor: pointer;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .06em;
+  color: var(--text-dim); padding: 5px 11px;
+  transition: background .15s ease, color .15s ease;
+}
+.theme-toggle button + button { border-left: 1px solid var(--line-soft); }
+.theme-toggle button:hover { color: var(--text); }
+.theme-toggle button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+
+/* 90-day summary ------------------------------------------------------- */
+.summary {
+  margin: 8px 0 34px;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  padding: 22px 24px;
+  animation: rise .5s both;
+}
+.summary__head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 8px 24px; flex-wrap: wrap;
+}
+.summary__label {
+  font-family: var(--mono); font-size: 12px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--text-dim); margin: 0;
+}
+.summary__pct { font-size: clamp(28px, 5vw, 40px); font-weight: 680; letter-spacing: -.02em; line-height: 1; }
+.summary__incidents { font-family: var(--mono); font-size: 13px; color: var(--text-dim); }
+.summary__incidents b { color: var(--text); }
+.summary .bars { margin-top: 16px; height: 40px; }
+
+@media (max-width: 560px) {
+  .masthead__inner { flex-wrap: wrap; gap: 10px; }
+  .masthead__right { width: 100%; justify-content: space-between; }
 }

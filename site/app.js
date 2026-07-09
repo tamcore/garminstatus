@@ -4,11 +4,13 @@
 
 "use strict";
 
-const WINDOW_DAYS = 180;
+const WINDOW_DAYS = 180; // per-service timeline
+const SUMMARY_DAYS = 90; // combined "Last 90 days" hero
 // Day bars are colored by uptime band rather than "any blip = amber", so a
 // single brief transient does not paint a whole day amber.
 const GREEN_MIN = 0.999; // >= this fraction up -> operational
 const AMBER_MIN = 0.95; // >= this -> partial; below -> down
+const THEME_KEY = "theme";
 
 const $ = (id) => document.getElementById(id);
 
@@ -16,15 +18,44 @@ function dayKey(d) {
   return d.toISOString().slice(0, 10); // YYYY-MM-DD (UTC)
 }
 
-// Build the ordered list of the last WINDOW_DAYS UTC dates, oldest first.
-function windowDates() {
+// Build the ordered list of the last n UTC dates, oldest first.
+function windowDates(n) {
   const out = [];
   const today = new Date();
   const base = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
-  for (let i = WINDOW_DAYS - 1; i >= 0; i--) {
+  for (let i = n - 1; i >= 0; i--) {
     out.push(new Date(base - i * 86400000));
   }
   return out;
+}
+
+// Theme (auto / light / dark) --------------------------------------------
+function applyTheme(mode) {
+  if (mode === "light" || mode === "dark") {
+    document.documentElement.dataset.theme = mode;
+  } else {
+    delete document.documentElement.dataset.theme; // auto -> prefers-color-scheme
+  }
+  try { localStorage.setItem(THEME_KEY, mode); } catch (e) { /* ignore */ }
+  const tg = $("themeToggle");
+  if (tg) {
+    for (const b of tg.querySelectorAll("button")) {
+      b.setAttribute("aria-pressed", String(b.dataset.mode === mode));
+    }
+  }
+}
+
+function initTheme() {
+  let mode = "auto";
+  try { mode = localStorage.getItem(THEME_KEY) || "auto"; } catch (e) { /* ignore */ }
+  applyTheme(mode);
+  const tg = $("themeToggle");
+  if (tg) {
+    tg.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-mode]");
+      if (btn) applyTheme(btn.dataset.mode);
+    });
+  }
 }
 
 function classifyDay(bucket) {
@@ -134,6 +165,55 @@ function renderSection(title, services, dates) {
   return sec;
 }
 
+// Combined "Last 90 days uptime" hero: fleet uptime %, a single 90-day bar
+// (per-day mean upFrac across all services), and the 90-day incident count.
+function renderSummary(data) {
+  const all = [...(data.services.platforms || []), ...(data.services.features || [])];
+  const el = $("summary");
+  if (!all.length) return;
+
+  const maps = all.map((s) => new Map((s.days || []).map((d) => [d.date, d])));
+  const dates = windowDates(SUMMARY_DAYS);
+
+  let overallSum = 0, overallN = 0;
+  const cells = dates.map((d) => {
+    const key = dayKey(d);
+    let sum = 0, n = 0;
+    for (const m of maps) {
+      const b = m.get(key);
+      if (b) { sum += b.upFrac; n++; }
+    }
+    if (n) { overallSum += sum; overallN += n; return { date: key, upFrac: sum / n }; }
+    return { date: key };
+  });
+  const uptime = overallN ? overallSum / overallN : 1;
+
+  const cutoff = Date.now() - SUMMARY_DAYS * 86400000;
+  const incCount = (data.incidents || []).filter((i) => new Date(i.start).getTime() >= cutoff).length;
+
+  el.hidden = false;
+  el.innerHTML =
+    `<div class="summary__head">` +
+      `<div>` +
+        `<p class="summary__label">Last 90 days uptime</p>` +
+        `<div class="summary__pct">${pct(uptime)}</div>` +
+      `</div>` +
+      `<div class="summary__incidents"><b>${incCount}</b> incident${incCount === 1 ? "" : "s"} in the last 90 days</div>` +
+    `</div>` +
+    `<div class="bars" id="summaryBars"></div>`;
+
+  const barsEl = $("summaryBars");
+  for (const c of cells) {
+    const bucket = "upFrac" in c ? { upFrac: c.upFrac } : null;
+    const cls = classifyDay(bucket);
+    const bar = document.createElement("div");
+    bar.className = "bar " + cls;
+    bar.addEventListener("mouseenter", () => showTip(bar, c.date, cls, bucket));
+    bar.addEventListener("mouseleave", hideTip);
+    barsEl.appendChild(bar);
+  }
+}
+
 function renderHero(data) {
   const all = [...(data.services.platforms || []), ...(data.services.features || [])];
   const down = all.filter((s) => s.current === "down");
@@ -209,7 +289,8 @@ function escapeHtml(s) {
 }
 
 async function main() {
-  const dates = windowDates();
+  initTheme();
+  const dates = windowDates(WINDOW_DAYS);
   let data;
   try {
     const res = await fetch("data/status.json", { cache: "no-cache" });
@@ -227,6 +308,8 @@ async function main() {
   // "updated" reflects the last check (generated); fall back to dataThrough.
   const checked = data.generated || data.dataThrough;
   $("lastChecked").textContent = checked ? `updated ${relTime(checked)}` : "";
+
+  renderSummary(data);
 
   const sections = $("sections");
   sections.appendChild(renderAxis(dates));

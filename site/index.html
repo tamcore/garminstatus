@@ -6,6 +6,16 @@
   <title>Garmin Status — unofficial uptime history</title>
   <meta name="description" content="Unofficial Garmin Connect status page with 180 days of uptime history." />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%A1%3C/text%3E%3C/svg%3E" />
+  <script>
+    // Apply the saved theme before first paint to avoid a flash. No stored
+    // value (or "auto") leaves the attribute unset so prefers-color-scheme wins.
+    (function () {
+      try {
+        var t = localStorage.getItem("theme");
+        if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+      } catch (e) { /* ignore */ }
+    })();
+  </script>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -18,7 +28,14 @@
         <span class="brand__name">GARMIN&nbsp;STATUS</span>
         <span class="brand__tag">unofficial</span>
       </div>
-      <div class="masthead__meta" id="lastChecked">—</div>
+      <div class="masthead__right">
+        <span class="masthead__meta" id="lastChecked">—</span>
+        <div class="theme-toggle" id="themeToggle" role="group" aria-label="Theme">
+          <button type="button" data-mode="auto" title="Follow system theme">Auto</button>
+          <button type="button" data-mode="light" title="Light theme">Light</button>
+          <button type="button" data-mode="dark" title="Dark theme">Dark</button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -30,6 +47,8 @@
         <p class="hero__sub" id="heroSub">Fetching the last 180 days of uptime history.</p>
       </div>
     </section>
+
+    <section class="summary" id="summary" hidden></section>
 
     <div id="sections"></div>
 
