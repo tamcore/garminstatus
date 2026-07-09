@@ -15,9 +15,9 @@ import (
 	"github.com/tamcore/garminstatus/pkg/healthcheck"
 )
 
-// Serve starts the HTTP server on addr (e.g. ":8080") and blocks. It exposes
-// /metrics, /live and /ready.
-func Serve(addr string) error {
+// Handler builds the observability mux exposing /metrics, /live and /ready,
+// wrapped in access logging.
+func Handler() http.Handler {
 	mux := http.NewServeMux()
 	mux.Handle("/metrics", promhttp.Handler())
 
@@ -25,10 +25,15 @@ func Serve(addr string) error {
 	mux.HandleFunc("/ready", health.ReadyEndpoint)
 	mux.HandleFunc("/live", health.LiveEndpoint)
 
+	return handlers.CombinedLoggingHandler(os.Stdout, mux)
+}
+
+// Serve starts the HTTP server on addr (e.g. ":8080") and blocks.
+func Serve(addr string) error {
 	server := &http.Server{
 		Addr:              addr,
 		ReadHeaderTimeout: 3 * time.Second,
-		Handler:           handlers.CombinedLoggingHandler(os.Stdout, mux),
+		Handler:           Handler(),
 	}
 
 	fmt.Println("serving metrics/health on", addr)
