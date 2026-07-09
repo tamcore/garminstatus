@@ -3,7 +3,7 @@ module github.com/tamcore/garminstatus
 go 1.26.5
 
 require (
-	github.com/PuerkitoBio/goquery v1.10.3
+	github.com/PuerkitoBio/goquery v1.12.0
 	github.com/go-git/go-git/v5 v5.19.1
 	github.com/gorilla/handlers v1.5.2
 	github.com/prometheus/client_golang v1.23.2
