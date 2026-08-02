@@ -1,6 +1,6 @@
 {
-  "generated": "2026-08-02T19:53:03.35232575Z",
-  "dataThrough": "2026-08-02T19:53:01.546048727Z",
+  "generated": "2026-08-02T20:03:03.482761092Z",
+  "dataThrough": "2026-08-02T20:03:01.753763065Z",
   "services": {
     "platforms": [
       {
@@ -631,7 +631,7 @@
       },
       {
         "name": "Garmin Connect",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -1250,8 +1250,8 @@
           },
           {
             "date": "2026-08-02",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9916847723552386,
+            "worst": "down"
           }
         ]
       },
@@ -16276,7 +16276,7 @@
           },
           {
             "date": "2026-08-02",
-            "upFrac": 0.9958088008364365,
+            "upFrac": 0.9958436516115861,
             "worst": "down"
           }
         ]
@@ -18799,12 +18799,12 @@
       "end": "2026-04-07T19:34:15.882Z"
     },
     {
-      "service": "Strava",
+      "service": "LiveTrack",
       "start": "2026-04-12T17:26:15.882Z",
       "end": "2026-04-12T21:04:15.882Z"
     },
     {
-      "service": "LiveTrack",
+      "service": "Strava",
       "start": "2026-04-12T17:26:15.882Z",
       "end": "2026-04-12T21:04:15.882Z"
     },
@@ -18839,12 +18839,12 @@
       "end": "2026-04-28T19:56:15.884Z"
     },
     {
-      "service": "Strava",
+      "service": "LiveTrack",
       "start": "2026-05-04T19:31:15.882Z",
       "end": "2026-05-04T19:56:15.882Z"
     },
     {
-      "service": "LiveTrack",
+      "service": "Strava",
       "start": "2026-05-04T19:31:15.882Z",
       "end": "2026-05-04T19:56:15.882Z"
     },
@@ -18859,14 +18859,14 @@
       "end": "2026-05-10T09:24:35.679Z"
     },
     {
-      "service": "Device Registration",
-      "start": "2026-05-19T18:19:35.66Z",
-      "end": "2026-05-19T18:49:35.66Z"
-    },
-    {
       "service": "Subscriptions",
       "start": "2026-05-19T18:19:35.66Z",
       "end": "2026-05-19T18:54:35.66Z"
+    },
+    {
+      "service": "Device Registration",
+      "start": "2026-05-19T18:19:35.66Z",
+      "end": "2026-05-19T18:49:35.66Z"
     },
     {
       "service": "LiveTrack",
@@ -18884,6 +18884,11 @@
       "end": "2026-05-21T13:44:35.659Z"
     },
     {
+      "service": "Garmin Jr.",
+      "start": "2026-06-18T18:19:35.659Z",
+      "end": "2026-06-18T18:54:35.659Z"
+    },
+    {
       "service": "Garmin Golf",
       "start": "2026-06-18T18:19:35.659Z",
       "end": "2026-06-18T18:54:35.659Z"
@@ -18892,11 +18897,6 @@
       "service": "LiveTrack",
       "start": "2026-06-18T18:19:35.659Z",
       "end": "2026-06-18T19:09:35.659Z"
-    },
-    {
-      "service": "Garmin Jr.",
-      "start": "2026-06-18T18:19:35.659Z",
-      "end": "2026-06-18T18:54:35.659Z"
     },
     {
       "service": "Connect IQ",
@@ -18909,17 +18909,22 @@
       "end": "2026-06-18T19:19:35.659Z"
     },
     {
-      "service": "Connect IQ",
-      "start": "2026-07-06T08:54:13.041Z",
-      "end": "2026-07-06T09:45:28.643Z"
-    },
-    {
-      "service": "Nutrition",
-      "start": "2026-07-06T08:54:13.041Z",
-      "end": "2026-07-06T09:45:28.643Z"
-    },
-    {
       "service": "Challenges \u0026 Connections",
+      "start": "2026-07-06T08:54:13.041Z",
+      "end": "2026-07-06T09:45:28.643Z"
+    },
+    {
+      "service": "Home",
+      "start": "2026-07-06T08:54:13.041Z",
+      "end": "2026-07-06T09:45:28.643Z"
+    },
+    {
+      "service": "Activity Uploads",
+      "start": "2026-07-06T08:54:13.041Z",
+      "end": "2026-07-06T09:45:28.643Z"
+    },
+    {
+      "service": "Active Intelligence",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -18929,7 +18934,7 @@
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Garmin Express",
+      "service": "Tacx",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -18944,12 +18949,12 @@
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Garmin Dive",
+      "service": "LiveTrack",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Garmin Connect",
+      "service": "Garmin Jr.",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -18960,11 +18965,6 @@
     },
     {
       "service": "Workouts",
-      "start": "2026-07-06T08:54:13.041Z",
-      "end": "2026-07-06T09:45:28.643Z"
-    },
-    {
-      "service": "Wellness Sync",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -18984,7 +18984,7 @@
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Home",
+      "service": "Activity Details",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -18994,7 +18994,7 @@
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Activity Uploads",
+      "service": "Nutrition",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -19014,22 +19014,22 @@
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Garmin Jr.",
-      "start": "2026-07-06T08:54:13.041Z",
-      "end": "2026-07-06T09:45:28.643Z"
-    },
-    {
       "service": "Garmin Golf",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Activity Details",
+      "service": "Garmin Express",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Active Intelligence",
+      "service": "Garmin Dive",
+      "start": "2026-07-06T08:54:13.041Z",
+      "end": "2026-07-06T09:45:28.643Z"
+    },
+    {
+      "service": "Garmin Connect",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -19039,12 +19039,12 @@
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Tacx",
+      "service": "Wellness Sync",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "LiveTrack",
+      "service": "Connect IQ",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -19067,10 +19067,6 @@
       "service": "Garmin Coach",
       "start": "2026-07-22T15:42:59.607044887Z",
       "end": "2026-07-22T22:17:59.694282763Z"
-    },
-    {
-      "service": "Garmin Connect",
-      "start": "2026-08-02T19:53:01.546048727Z"
     }
   ]
 }
