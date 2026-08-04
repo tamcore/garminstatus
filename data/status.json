@@ -1,6 +1,6 @@
 {
-  "generated": "2026-08-04T02:28:03.536494814Z",
-  "dataThrough": "2026-08-04T02:28:01.505031388Z",
+  "generated": "2026-08-04T02:33:03.171803181Z",
+  "dataThrough": "2026-08-04T02:33:01.481436424Z",
   "services": {
     "platforms": [
       {
@@ -634,8 +634,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -1270,8 +1270,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -1906,8 +1906,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -2542,8 +2542,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -3178,8 +3178,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -3814,8 +3814,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -4450,8 +4450,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -5086,8 +5086,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       }
@@ -5724,8 +5724,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -6360,8 +6360,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -6996,8 +6996,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -7632,8 +7632,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -8268,8 +8268,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -8904,8 +8904,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -9540,8 +9540,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -10176,8 +10176,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -10812,14 +10812,14 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Garmin Trails",
-        "current": "up",
+        "current": "down",
         "days": [
           {
             "date": "2026-04-01",
@@ -12084,8 +12084,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -12720,8 +12720,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -13356,14 +13356,14 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Nutrition",
-        "current": "up",
+        "current": "down",
         "days": [
           {
             "date": "2026-04-01",
@@ -13999,7 +13999,7 @@
       },
       {
         "name": "Performance Dashboard",
-        "current": "up",
+        "current": "down",
         "days": [
           {
             "date": "2026-04-01",
@@ -15264,8 +15264,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -15900,8 +15900,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -16536,8 +16536,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -17172,8 +17172,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -17808,8 +17808,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -18444,8 +18444,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       },
@@ -19080,8 +19080,8 @@
           },
           {
             "date": "2026-08-04",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9673281041721699,
+            "worst": "down"
           }
         ]
       }
@@ -19099,12 +19099,12 @@
       "end": "2026-04-07T19:34:15.882Z"
     },
     {
-      "service": "LiveTrack",
+      "service": "Strava",
       "start": "2026-04-12T17:26:15.882Z",
       "end": "2026-04-12T21:04:15.882Z"
     },
     {
-      "service": "Strava",
+      "service": "LiveTrack",
       "start": "2026-04-12T17:26:15.882Z",
       "end": "2026-04-12T21:04:15.882Z"
     },
@@ -19139,12 +19139,12 @@
       "end": "2026-04-28T19:56:15.884Z"
     },
     {
-      "service": "Strava",
+      "service": "LiveTrack",
       "start": "2026-05-04T19:31:15.882Z",
       "end": "2026-05-04T19:56:15.882Z"
     },
     {
-      "service": "LiveTrack",
+      "service": "Strava",
       "start": "2026-05-04T19:31:15.882Z",
       "end": "2026-05-04T19:56:15.882Z"
     },
@@ -19159,14 +19159,14 @@
       "end": "2026-05-10T09:24:35.679Z"
     },
     {
-      "service": "Subscriptions",
-      "start": "2026-05-19T18:19:35.66Z",
-      "end": "2026-05-19T18:54:35.66Z"
-    },
-    {
       "service": "Device Registration",
       "start": "2026-05-19T18:19:35.66Z",
       "end": "2026-05-19T18:49:35.66Z"
+    },
+    {
+      "service": "Subscriptions",
+      "start": "2026-05-19T18:19:35.66Z",
+      "end": "2026-05-19T18:54:35.66Z"
     },
     {
       "service": "LiveTrack",
@@ -19209,12 +19209,12 @@
       "end": "2026-06-18T19:19:35.659Z"
     },
     {
-      "service": "Nutrition",
+      "service": "Device Registration",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Garmin Trails",
+      "service": "LiveTrack",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -19264,7 +19264,7 @@
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Strava",
+      "service": "Home",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -19274,7 +19274,7 @@
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Garmin Connect",
+      "service": "Strava",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -19284,7 +19284,7 @@
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Garmin Dive",
+      "service": "Goals",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -19294,7 +19294,7 @@
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Segments",
+      "service": "Garmin Connect",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -19304,12 +19304,12 @@
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Device Registration",
+      "service": "Garmin Dive",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Reports",
+      "service": "Segments",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -19319,12 +19319,7 @@
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Performance Dashboard",
-      "start": "2026-07-06T08:54:13.041Z",
-      "end": "2026-07-06T09:45:28.643Z"
-    },
-    {
-      "service": "Incident Detection \u0026 Assistance",
+      "service": "Reports",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -19334,17 +19329,22 @@
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
+      "service": "Performance Dashboard",
+      "start": "2026-07-06T08:54:13.041Z",
+      "end": "2026-07-06T09:45:28.643Z"
+    },
+    {
       "service": "Garmin Coach",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Home",
+      "service": "Garmin Trails",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Goals",
+      "service": "Nutrition",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -19354,7 +19354,7 @@
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "LiveTrack",
+      "service": "Incident Detection \u0026 Assistance",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -19369,11 +19369,15 @@
       "end": "2026-07-22T22:17:59.694282763Z"
     },
     {
+      "service": "Challenges \u0026 Connections",
+      "start": "2026-08-04T02:28:01.505031388Z"
+    },
+    {
       "service": "Garmin Connect",
       "start": "2026-08-04T02:28:01.505031388Z"
     },
     {
-      "service": "Wellness Sync",
+      "service": "Workouts",
       "start": "2026-08-04T02:28:01.505031388Z"
     },
     {
@@ -19381,7 +19385,7 @@
       "start": "2026-08-04T02:28:01.505031388Z"
     },
     {
-      "service": "Garmin Express",
+      "service": "Garmin Pay",
       "start": "2026-08-04T02:28:01.505031388Z"
     },
     {
@@ -19389,7 +19393,19 @@
       "start": "2026-08-04T02:28:01.505031388Z"
     },
     {
+      "service": "Garmin Coach",
+      "start": "2026-08-04T02:28:01.505031388Z"
+    },
+    {
+      "service": "LiveTrack",
+      "start": "2026-08-04T02:28:01.505031388Z"
+    },
+    {
       "service": "Garmin Dive",
+      "start": "2026-08-04T02:28:01.505031388Z"
+    },
+    {
+      "service": "Wellness Sync",
       "start": "2026-08-04T02:28:01.505031388Z"
     },
     {
@@ -19397,15 +19413,11 @@
       "start": "2026-08-04T02:28:01.505031388Z"
     },
     {
-      "service": "Device Registration",
-      "start": "2026-08-04T02:28:01.505031388Z"
-    },
-    {
       "service": "Reports",
       "start": "2026-08-04T02:28:01.505031388Z"
     },
     {
-      "service": "Courses",
+      "service": "Device Registration",
       "start": "2026-08-04T02:28:01.505031388Z"
     },
     {
@@ -19413,7 +19425,7 @@
       "start": "2026-08-04T02:28:01.505031388Z"
     },
     {
-      "service": "Connect IQ",
+      "service": "Garmin Express",
       "start": "2026-08-04T02:28:01.505031388Z"
     },
     {
@@ -19421,15 +19433,15 @@
       "start": "2026-08-04T02:28:01.505031388Z"
     },
     {
-      "service": "Garmin Pay",
+      "service": "Courses",
       "start": "2026-08-04T02:28:01.505031388Z"
     },
     {
-      "service": "Challenges \u0026 Connections",
+      "service": "Connect IQ",
       "start": "2026-08-04T02:28:01.505031388Z"
     },
     {
-      "service": "Garmin Golf",
+      "service": "Activity Uploads",
       "start": "2026-08-04T02:28:01.505031388Z"
     },
     {
@@ -19437,7 +19449,7 @@
       "start": "2026-08-04T02:28:01.505031388Z"
     },
     {
-      "service": "Garmin Coach",
+      "service": "Garmin Golf",
       "start": "2026-08-04T02:28:01.505031388Z"
     },
     {
@@ -19465,16 +19477,16 @@
       "start": "2026-08-04T02:28:01.505031388Z"
     },
     {
-      "service": "Activity Uploads",
-      "start": "2026-08-04T02:28:01.505031388Z"
+      "service": "Performance Dashboard",
+      "start": "2026-08-04T02:33:01.481436424Z"
     },
     {
-      "service": "LiveTrack",
-      "start": "2026-08-04T02:28:01.505031388Z"
+      "service": "Nutrition",
+      "start": "2026-08-04T02:33:01.481436424Z"
     },
     {
-      "service": "Workouts",
-      "start": "2026-08-04T02:28:01.505031388Z"
+      "service": "Garmin Trails",
+      "start": "2026-08-04T02:33:01.481436424Z"
     }
   ]
 }
