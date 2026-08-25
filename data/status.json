@@ -1,11 +1,11 @@
 {
-  "generated": "2026-08-25T12:33:03.97101948Z",
-  "dataThrough": "2026-08-25T12:33:01.568059883Z",
+  "generated": "2026-08-25T14:43:03.94561477Z",
+  "dataThrough": "2026-08-25T14:43:01.552071216Z",
   "services": {
     "platforms": [
       {
         "name": "Connect IQ",
-        "current": "up",
+        "current": "down",
         "days": [
           {
             "date": "2026-04-01",
@@ -22334,12 +22334,12 @@
       "end": "2026-05-21T13:44:35.659Z"
     },
     {
-      "service": "Garmin Jr.",
+      "service": "Garmin Golf",
       "start": "2026-06-18T18:19:35.659Z",
       "end": "2026-06-18T18:54:35.659Z"
     },
     {
-      "service": "Garmin Golf",
+      "service": "Garmin Jr.",
       "start": "2026-06-18T18:19:35.659Z",
       "end": "2026-06-18T18:54:35.659Z"
     },
@@ -22359,12 +22359,17 @@
       "end": "2026-06-18T19:19:35.659Z"
     },
     {
-      "service": "ECG",
+      "service": "Device Registration",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Home",
+      "service": "Challenges \u0026 Connections",
+      "start": "2026-07-06T08:54:13.041Z",
+      "end": "2026-07-06T09:45:28.643Z"
+    },
+    {
+      "service": "LiveTrack",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -22384,7 +22389,7 @@
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Third Party Sync",
+      "service": "Garmin Jr.",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -22394,7 +22399,7 @@
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Subscriptions",
+      "service": "Third Party Sync",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -22404,47 +22409,12 @@
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
+      "service": "Subscriptions",
+      "start": "2026-07-06T08:54:13.041Z",
+      "end": "2026-07-06T09:45:28.643Z"
+    },
+    {
       "service": "Connect IQ",
-      "start": "2026-07-06T08:54:13.041Z",
-      "end": "2026-07-06T09:45:28.643Z"
-    },
-    {
-      "service": "Garmin Jr.",
-      "start": "2026-07-06T08:54:13.041Z",
-      "end": "2026-07-06T09:45:28.643Z"
-    },
-    {
-      "service": "Strava",
-      "start": "2026-07-06T08:54:13.041Z",
-      "end": "2026-07-06T09:45:28.643Z"
-    },
-    {
-      "service": "Activity Uploads",
-      "start": "2026-07-06T08:54:13.041Z",
-      "end": "2026-07-06T09:45:28.643Z"
-    },
-    {
-      "service": "Garmin Connect",
-      "start": "2026-07-06T08:54:13.041Z",
-      "end": "2026-07-06T09:45:28.643Z"
-    },
-    {
-      "service": "Challenges \u0026 Connections",
-      "start": "2026-07-06T08:54:13.041Z",
-      "end": "2026-07-06T09:45:28.643Z"
-    },
-    {
-      "service": "Garmin Dive",
-      "start": "2026-07-06T08:54:13.041Z",
-      "end": "2026-07-06T09:45:28.643Z"
-    },
-    {
-      "service": "Courses",
-      "start": "2026-07-06T08:54:13.041Z",
-      "end": "2026-07-06T09:45:28.643Z"
-    },
-    {
-      "service": "Segments",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -22454,12 +22424,52 @@
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Device Registration",
+      "service": "Activity Uploads",
+      "start": "2026-07-06T08:54:13.041Z",
+      "end": "2026-07-06T09:45:28.643Z"
+    },
+    {
+      "service": "Garmin Trails",
+      "start": "2026-07-06T08:54:13.041Z",
+      "end": "2026-07-06T09:45:28.643Z"
+    },
+    {
+      "service": "Goals",
+      "start": "2026-07-06T08:54:13.041Z",
+      "end": "2026-07-06T09:45:28.643Z"
+    },
+    {
+      "service": "Strava",
+      "start": "2026-07-06T08:54:13.041Z",
+      "end": "2026-07-06T09:45:28.643Z"
+    },
+    {
+      "service": "Courses",
+      "start": "2026-07-06T08:54:13.041Z",
+      "end": "2026-07-06T09:45:28.643Z"
+    },
+    {
+      "service": "Garmin Connect",
+      "start": "2026-07-06T08:54:13.041Z",
+      "end": "2026-07-06T09:45:28.643Z"
+    },
+    {
+      "service": "Segments",
+      "start": "2026-07-06T08:54:13.041Z",
+      "end": "2026-07-06T09:45:28.643Z"
+    },
+    {
+      "service": "Garmin Express",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
       "service": "Reports",
+      "start": "2026-07-06T08:54:13.041Z",
+      "end": "2026-07-06T09:45:28.643Z"
+    },
+    {
+      "service": "ECG",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -22474,12 +22484,7 @@
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Garmin Express",
-      "start": "2026-07-06T08:54:13.041Z",
-      "end": "2026-07-06T09:45:28.643Z"
-    },
-    {
-      "service": "Incident Detection \u0026 Assistance",
+      "service": "Garmin Dive",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -22489,22 +22494,17 @@
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "LiveTrack",
+      "service": "Home",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
-      "service": "Goals",
+      "service": "Incident Detection \u0026 Assistance",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
     {
       "service": "Garmin Pay",
-      "start": "2026-07-06T08:54:13.041Z",
-      "end": "2026-07-06T09:45:28.643Z"
-    },
-    {
-      "service": "Garmin Trails",
       "start": "2026-07-06T08:54:13.041Z",
       "end": "2026-07-06T09:45:28.643Z"
     },
@@ -22519,17 +22519,22 @@
       "end": "2026-07-22T22:17:59.694282763Z"
     },
     {
-      "service": "Challenges \u0026 Connections",
+      "service": "Goals",
       "start": "2026-08-04T02:28:01.505031388Z",
       "end": "2026-08-04T02:53:01.488680947Z"
     },
     {
-      "service": "Segments",
+      "service": "Subscriptions",
       "start": "2026-08-04T02:28:01.505031388Z",
       "end": "2026-08-04T02:53:01.488680947Z"
     },
     {
-      "service": "Garmin Coach",
+      "service": "Garmin Jr.",
+      "start": "2026-08-04T02:28:01.505031388Z",
+      "end": "2026-08-04T02:53:01.488680947Z"
+    },
+    {
+      "service": "Garmin Pay",
       "start": "2026-08-04T02:28:01.505031388Z",
       "end": "2026-08-04T02:53:01.488680947Z"
     },
@@ -22539,7 +22544,7 @@
       "end": "2026-08-04T02:53:01.488680947Z"
     },
     {
-      "service": "Garmin Dive",
+      "service": "Garmin Coach",
       "start": "2026-08-04T02:28:01.505031388Z",
       "end": "2026-08-04T02:53:01.488680947Z"
     },
@@ -22549,7 +22554,7 @@
       "end": "2026-08-04T02:53:01.488680947Z"
     },
     {
-      "service": "ECG",
+      "service": "Garmin Dive",
       "start": "2026-08-04T02:28:01.505031388Z",
       "end": "2026-08-04T02:53:01.488680947Z"
     },
@@ -22559,12 +22564,12 @@
       "end": "2026-08-04T02:53:01.488680947Z"
     },
     {
-      "service": "Garmin Express",
+      "service": "ECG",
       "start": "2026-08-04T02:28:01.505031388Z",
       "end": "2026-08-04T02:53:01.488680947Z"
     },
     {
-      "service": "Garmin Golf",
+      "service": "LiveTrack",
       "start": "2026-08-04T02:28:01.505031388Z",
       "end": "2026-08-04T02:53:01.488680947Z"
     },
@@ -22579,17 +22584,12 @@
       "end": "2026-08-04T02:53:01.488680947Z"
     },
     {
-      "service": "Courses",
+      "service": "Garmin Express",
       "start": "2026-08-04T02:28:01.505031388Z",
       "end": "2026-08-04T02:53:01.488680947Z"
     },
     {
-      "service": "Third Party Sync",
-      "start": "2026-08-04T02:28:01.505031388Z",
-      "end": "2026-08-04T02:53:01.488680947Z"
-    },
-    {
-      "service": "Garmin Pay",
+      "service": "Segments",
       "start": "2026-08-04T02:28:01.505031388Z",
       "end": "2026-08-04T02:53:01.488680947Z"
     },
@@ -22599,27 +22599,7 @@
       "end": "2026-08-04T02:53:01.488680947Z"
     },
     {
-      "service": "Goals",
-      "start": "2026-08-04T02:28:01.505031388Z",
-      "end": "2026-08-04T02:53:01.488680947Z"
-    },
-    {
-      "service": "Connect IQ",
-      "start": "2026-08-04T02:28:01.505031388Z",
-      "end": "2026-08-04T02:53:01.488680947Z"
-    },
-    {
-      "service": "Activity Uploads",
-      "start": "2026-08-04T02:28:01.505031388Z",
-      "end": "2026-08-04T02:53:01.488680947Z"
-    },
-    {
-      "service": "Strava",
-      "start": "2026-08-04T02:28:01.505031388Z",
-      "end": "2026-08-04T02:53:01.488680947Z"
-    },
-    {
-      "service": "LiveTrack",
+      "service": "Courses",
       "start": "2026-08-04T02:28:01.505031388Z",
       "end": "2026-08-04T02:53:01.488680947Z"
     },
@@ -22629,17 +22609,17 @@
       "end": "2026-08-04T02:53:01.488680947Z"
     },
     {
-      "service": "Activity Details",
+      "service": "Connect IQ",
       "start": "2026-08-04T02:28:01.505031388Z",
       "end": "2026-08-04T02:53:01.488680947Z"
     },
     {
-      "service": "Active Intelligence",
+      "service": "Challenges \u0026 Connections",
       "start": "2026-08-04T02:28:01.505031388Z",
       "end": "2026-08-04T02:53:01.488680947Z"
     },
     {
-      "service": "Subscriptions",
+      "service": "Strava",
       "start": "2026-08-04T02:28:01.505031388Z",
       "end": "2026-08-04T02:53:01.488680947Z"
     },
@@ -22649,17 +22629,37 @@
       "end": "2026-08-04T02:53:01.488680947Z"
     },
     {
-      "service": "Garmin Jr.",
+      "service": "Activity Uploads",
       "start": "2026-08-04T02:28:01.505031388Z",
       "end": "2026-08-04T02:53:01.488680947Z"
     },
     {
-      "service": "Performance Dashboard",
-      "start": "2026-08-04T02:33:01.481436424Z",
+      "service": "Garmin Golf",
+      "start": "2026-08-04T02:28:01.505031388Z",
+      "end": "2026-08-04T02:53:01.488680947Z"
+    },
+    {
+      "service": "Activity Details",
+      "start": "2026-08-04T02:28:01.505031388Z",
+      "end": "2026-08-04T02:53:01.488680947Z"
+    },
+    {
+      "service": "Third Party Sync",
+      "start": "2026-08-04T02:28:01.505031388Z",
+      "end": "2026-08-04T02:53:01.488680947Z"
+    },
+    {
+      "service": "Active Intelligence",
+      "start": "2026-08-04T02:28:01.505031388Z",
       "end": "2026-08-04T02:53:01.488680947Z"
     },
     {
       "service": "Garmin Trails",
+      "start": "2026-08-04T02:33:01.481436424Z",
+      "end": "2026-08-04T02:53:01.488680947Z"
+    },
+    {
+      "service": "Performance Dashboard",
       "start": "2026-08-04T02:33:01.481436424Z",
       "end": "2026-08-04T02:53:01.488680947Z"
     },
@@ -22682,6 +22682,10 @@
       "service": "Third Party Sync",
       "start": "2026-08-13T18:43:01.461943279Z",
       "end": "2026-08-13T19:38:01.49906224Z"
+    },
+    {
+      "service": "Connect IQ",
+      "start": "2026-08-25T14:43:01.552071216Z"
     }
   ]
 }
