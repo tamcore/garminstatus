@@ -31,7 +31,7 @@ jobs:
         uses: golang/govulncheck-action@032d45514ae346b1db93c04b0c90b841c370344f # v1
 
       - name: Check for spelling errors
-        uses: reviewdog/action-misspell@d6429416b12b09b4e2768307d53bef58d172e962 # v1
+        uses: reviewdog/action-misspell@ce198e1db0d029be165f2d3e809c1a42353446b0 # v1
         with:
           exclude: ./vendor/*
           fail_on_error: true
