@@ -1,11 +1,11 @@
 {
-  "generated": "2026-10-14T05:03:04.28256952Z",
-  "dataThrough": "2026-10-14T05:03:01.52742997Z",
+  "generated": "2026-10-14T05:18:03.773158255Z",
+  "dataThrough": "2026-10-14T05:18:01.641743213Z",
   "services": {
     "platforms": [
       {
         "name": "Connect IQ",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -989,8 +989,8 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
@@ -1980,14 +1980,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Garmin Dive",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -2971,14 +2971,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Garmin Express",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -3962,14 +3962,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Garmin Golf",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -4953,14 +4953,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Garmin Jr.",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -5944,14 +5944,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "LiveTrack",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -6935,14 +6935,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Tacx",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -7926,8 +7926,8 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       }
@@ -7935,7 +7935,7 @@
     "features": [
       {
         "name": "Active Intelligence",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -8919,14 +8919,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Activity Details",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -9910,14 +9910,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Activity Uploads",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -10901,14 +10901,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Challenges \u0026 Connections",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -11892,14 +11892,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Courses",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -12883,14 +12883,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Device Registration",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -13874,14 +13874,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "ECG",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -14865,14 +14865,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Garmin Coach",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -15856,14 +15856,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Garmin Pay",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -16847,14 +16847,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Garmin Trails",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -17838,14 +17838,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Goals",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -18829,14 +18829,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Home",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -19820,14 +19820,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Incident Detection \u0026 Assistance",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -20811,14 +20811,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Nutrition",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -21802,14 +21802,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Performance Dashboard",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -22793,14 +22793,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Reports",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -23784,14 +23784,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Segments",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -24775,14 +24775,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Strava",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -25766,14 +25766,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Subscriptions",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -26757,14 +26757,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Third Party Sync",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -27748,14 +27748,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Wellness Sync",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -28739,14 +28739,14 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       },
       {
         "name": "Workouts",
-        "current": "down",
+        "current": "up",
         "days": [
           {
             "date": "2026-04-01",
@@ -29730,8 +29730,8 @@
           },
           {
             "date": "2026-10-14",
-            "upFrac": 1,
-            "worst": "up"
+            "upFrac": 0.9528282563232194,
+            "worst": "down"
           }
         ]
       }
@@ -30415,27 +30415,33 @@
     },
     {
       "service": "Connect IQ",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "ECG",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Garmin Jr.",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Device Registration",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Goals",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Courses",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Garmin Connect",
@@ -30443,95 +30449,118 @@
     },
     {
       "service": "Strava",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Segments",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Garmin Coach",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Garmin Golf",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Reports",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Challenges \u0026 Connections",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Performance Dashboard",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Subscriptions",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Garmin Pay",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "LiveTrack",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Activity Uploads",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Garmin Dive",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Nutrition",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Third Party Sync",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Incident Detection \u0026 Assistance",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Tacx",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Activity Details",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Garmin Trails",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Wellness Sync",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Home",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Active Intelligence",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Garmin Express",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     },
     {
       "service": "Workouts",
-      "start": "2026-10-14T05:03:01.52742997Z"
+      "start": "2026-10-14T05:03:01.52742997Z",
+      "end": "2026-10-14T05:18:01.641743213Z"
     }
   ]
 }
