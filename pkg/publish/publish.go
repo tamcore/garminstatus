@@ -218,12 +218,14 @@ func (p *Publisher) openOrClone(dir, branch string) (*git.Repository, error) {
 		Auth:          p.auth,
 		ReferenceName: plumbing.NewBranchReferenceName(branch),
 		SingleBranch:  true,
+		Depth:         1,
 	})
 }
 
 func (p *Publisher) pull(repo *git.Repository, branch string) error {
 	err := repo.Fetch(&git.FetchOptions{
-		Auth: p.auth,
+		Auth:  p.auth,
+		Depth: 1,
 		RefSpecs: []config.RefSpec{
 			config.RefSpec(fmt.Sprintf("+refs/heads/%s:refs/remotes/origin/%s", branch, branch)),
 		},
