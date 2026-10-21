@@ -3,6 +3,7 @@
 package garminstatus
 
 import (
+	"context"
 	"errors"
 	"log"
 	"net"
@@ -28,7 +29,7 @@ func TestFetchStatus(t *testing.T) {
 	httpClient = &http.Client{
 		Timeout: time.Second * 10,
 		Transport: &http.Transport{
-			Dial: func(string, string) (net.Conn, error) {
+			DialContext: func(context.Context, string, string) (net.Conn, error) {
 				return nil, errors.New("mock error")
 			},
 		},
