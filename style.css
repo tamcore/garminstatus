@@ -326,7 +326,7 @@ body { min-height: 100vh; position: relative; overflow-x: hidden; }
 .theme-toggle button:hover { color: var(--text); }
 .theme-toggle button[aria-pressed="true"] { background: var(--accent); color: #fff; }
 
-/* 90-day summary ------------------------------------------------------- */
+/* Summary ------------------------------------------------------- */
 .summary {
   margin: 8px 0 34px;
   border: 1px solid var(--line); border-radius: var(--radius);

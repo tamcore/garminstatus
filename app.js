@@ -4,8 +4,7 @@
 
 "use strict";
 
-const WINDOW_DAYS = 180; // per-service timeline
-const SUMMARY_DAYS = 90; // combined "Last 90 days" hero
+const WINDOW_DAYS = 180;
 // Day bars are colored by uptime band rather than "any blip = amber", so a
 // single brief transient does not paint a whole day amber.
 const GREEN_MIN = 0.999; // >= this fraction up -> operational
@@ -165,15 +164,15 @@ function renderSection(title, services, dates) {
   return sec;
 }
 
-// Combined "Last 90 days uptime" hero: fleet uptime %, a single 90-day bar
-// (per-day mean upFrac across all services), and the 90-day incident count.
+// Combined hero: fleet uptime %, a single window-wide bar (per-day mean upFrac
+// across all services), and the window incident count.
 function renderSummary(data) {
   const all = [...(data.services.platforms || []), ...(data.services.features || [])];
   const el = $("summary");
   if (!all.length) return;
 
   const maps = all.map((s) => new Map((s.days || []).map((d) => [d.date, d])));
-  const dates = windowDates(SUMMARY_DAYS);
+  const dates = windowDates(WINDOW_DAYS);
 
   let overallSum = 0, overallN = 0;
   const cells = dates.map((d) => {
@@ -188,17 +187,17 @@ function renderSummary(data) {
   });
   const uptime = overallN ? overallSum / overallN : 1;
 
-  const cutoff = Date.now() - SUMMARY_DAYS * 86400000;
+  const cutoff = Date.now() - WINDOW_DAYS * 86400000;
   const incCount = (data.incidents || []).filter((i) => new Date(i.start).getTime() >= cutoff).length;
 
   el.hidden = false;
   el.innerHTML =
     `<div class="summary__head">` +
       `<div>` +
-        `<p class="summary__label">Last 90 days uptime</p>` +
+        `<p class="summary__label">Last ${WINDOW_DAYS} days uptime</p>` +
         `<div class="summary__pct">${pct(uptime)}</div>` +
       `</div>` +
-      `<div class="summary__incidents"><b>${incCount}</b> incident${incCount === 1 ? "" : "s"} in the last 90 days</div>` +
+      `<div class="summary__incidents"><b>${incCount}</b> incident${incCount === 1 ? "" : "s"} in the last ${WINDOW_DAYS} days</div>` +
     `</div>` +
     `<div class="bars" id="summaryBars"></div>`;
 
