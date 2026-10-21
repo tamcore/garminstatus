@@ -179,3 +179,24 @@ func TestCycleDedupAndChange(t *testing.T) {
 		t.Fatalf("expected 2 records after change, got %d", n)
 	}
 }
+
+func TestCycleClonesShallow(t *testing.T) {
+	url := seedRemote(t)
+	cur := time.Date(2026, 1, 10, 12, 0, 0, 0, time.UTC)
+	fetch := func() (garminstatus.GarminStatus, error) { return up("B"), nil }
+	now := func() time.Time { return cur }
+	if err := newTestPublisher(url, t.TempDir(), fetch, now).Cycle(); err != nil {
+		t.Fatal(err)
+	}
+
+	cur = cur.Add(time.Minute)
+	work := t.TempDir()
+	if err := newTestPublisher(url, work, fetch, now).Cycle(); err != nil {
+		t.Fatal(err)
+	}
+	for _, dir := range []string{"data", "pages"} {
+		if _, err := os.Stat(filepath.Join(work, dir, ".git", "shallow")); err != nil {
+			t.Errorf("%s clone not shallow: %v", dir, err)
+		}
+	}
+}
