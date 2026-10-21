@@ -8,35 +8,82 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"net/http/httptest"
 	"strings"
 	"testing"
-	"time"
 
 	"github.com/PuerkitoBio/goquery"
 )
 
-func TestFetchStatus(t *testing.T) {
-	// Test case: Successful fetch
-	status, err := FetchStatus()
-	if err != nil {
-		t.Errorf("Expected no error, but got %v", err)
-	}
-	if status.Platforms == nil || status.Features == nil {
-		t.Errorf("Expected non-nil ServicesMap, but got nil")
-	}
+const fixtureHTML = `
+<div id="platforms">
+	<div class="service green"><div class="item">Connect</div></div>
+</div>
+<div id="features">
+	<div class="service red">
+		<div class="item">Sync</div>
+		<div class="status-reasons">Delayed</div>
+	</div>
+</div>`
 
-	// Test case: Failed fetch ( mock error in HTTP request)
-	httpClient = &http.Client{
-		Timeout: time.Second * 10,
-		Transport: &http.Transport{
-			DialContext: func(context.Context, string, string) (net.Conn, error) {
-				return nil, errors.New("mock error")
-			},
-		},
+func serve(t *testing.T, code int, body string) *httptest.Server {
+	t.Helper()
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		w.WriteHeader(code)
+		_, _ = w.Write([]byte(body))
+	}))
+	t.Cleanup(srv.Close)
+	return srv
+}
+
+func TestFetchStatus(t *testing.T) {
+	srv := serve(t, http.StatusOK, fixtureHTML)
+
+	status, err := FetchStatus(t.Context(), srv.Client(), srv.URL)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
 	}
-	_, err = FetchStatus()
-	if err == nil {
-		t.Errorf("Expected error, but got nil")
+	if got := status.Platforms["Connect"]; got.Status != Up {
+		t.Errorf("Connect = %+v, want up", got)
+	}
+	got := status.Features["Sync"]
+	if got.Status != Down || len(got.StatusReason) != 1 || got.StatusReason[0] != "Delayed" {
+		t.Errorf("Sync = %+v, want down with reason Delayed", got)
+	}
+}
+
+func TestFetchStatusErrors(t *testing.T) {
+	tests := []struct {
+		name string
+		code int
+		body string
+		want error
+	}{
+		{"empty page", http.StatusOK, "<html></html>", ErrNoServices},
+		{"bad status", http.StatusServiceUnavailable, fixtureHTML, nil},
+	}
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			srv := serve(t, tc.code, tc.body)
+			_, err := FetchStatus(t.Context(), srv.Client(), srv.URL)
+			if err == nil {
+				t.Fatal("expected error, got nil")
+			}
+			if tc.want != nil && !errors.Is(err, tc.want) {
+				t.Errorf("err = %v, want %v", err, tc.want)
+			}
+		})
+	}
+}
+
+func TestFetchStatusTransportError(t *testing.T) {
+	client := &http.Client{Transport: &http.Transport{
+		DialContext: func(context.Context, string, string) (net.Conn, error) {
+			return nil, errors.New("mock error")
+		},
+	}}
+	if _, err := FetchStatus(t.Context(), client, GarminConnectStatusURI); err == nil {
+		t.Error("expected error, got nil")
 	}
 }
 

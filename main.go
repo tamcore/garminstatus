@@ -15,6 +15,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"net/http"
 	"os"
 	"os/signal"
 	"sort"
@@ -38,10 +39,15 @@ const (
 	defaultOutPath   = "site/data/status.json"
 	defaultHeartbeat = 3 * time.Hour
 	defaultInterval  = 5 * time.Minute
+	fetchTimeout     = 10 * time.Second
 )
 
+var httpClient = &http.Client{Timeout: fetchTimeout}
+
 // fetchStatus is a seam so tests can drive the commands without a live fetch.
-var fetchStatus = garminstatus.FetchStatus
+var fetchStatus = func() (garminstatus.GarminStatus, error) {
+	return garminstatus.FetchStatus(context.Background(), httpClient, garminstatus.GarminConnectStatusURI)
+}
 
 func main() {
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
@@ -192,7 +198,7 @@ func doBuild(w io.Writer, data, out string) error {
 // doDaemon builds the publisher, serves observability endpoints, and runs the
 // cycle loop until ctx is cancelled.
 func doDaemon(ctx context.Context, interval, heartbeat time.Duration, repo, key, work, addr string) error {
-	pub, err := publish.New(repo, key, work, heartbeat)
+	pub, err := publish.New(repo, key, work, heartbeat, fetchStatus)
 	if err != nil {
 		return err
 	}

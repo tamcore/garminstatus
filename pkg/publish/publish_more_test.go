@@ -32,13 +32,13 @@ func writeTestKey(t *testing.T) string {
 }
 
 func TestNew(t *testing.T) {
-	if _, err := New("file:///tmp/x", "", t.TempDir(), time.Hour); err != nil {
+	if _, err := New("file:///tmp/x", "", t.TempDir(), time.Hour, nil); err != nil {
 		t.Fatalf("New without key: %v", err)
 	}
-	if _, err := New("git@github.com:o/r.git", "/does/not/exist", t.TempDir(), time.Hour); err == nil {
+	if _, err := New("git@github.com:o/r.git", "/does/not/exist", t.TempDir(), time.Hour, nil); err == nil {
 		t.Error("New with missing key should error")
 	}
-	p, err := New("git@github.com:o/r.git", writeTestKey(t), t.TempDir(), time.Hour)
+	p, err := New("git@github.com:o/r.git", writeTestKey(t), t.TempDir(), time.Hour, nil)
 	if err != nil {
 		t.Fatalf("New with valid key: %v", err)
 	}
