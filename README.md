@@ -101,4 +101,4 @@ cd site && python3 -m http.server     # open http://localhost:8000
 
 ## License
 
-See repository metadata.
+MIT — see [LICENSE](LICENSE).

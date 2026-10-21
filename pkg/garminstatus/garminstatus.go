@@ -2,10 +2,11 @@ package garminstatus
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"strings"
-	"time"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -39,21 +40,20 @@ type GarminStatus struct {
 	Features  ServiceMap `json:"Features"`
 }
 
-var httpClient = &http.Client{
-	Timeout: time.Second * 10,
-}
+const maxBodyBytes = 1 << 20
 
-// FetchStatus fetches the Garmin service status and returns it as a GarminStatus struct.
-func FetchStatus() (GarminStatus, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
+// ErrNoServices is returned when the page has no recognizable services, e.g. after a layout change.
+var ErrNoServices = errors.New("no services found on status page")
 
+// FetchStatus fetches the Garmin service status from url using client.
+// The caller controls cancellation and timeouts via ctx.
+func FetchStatus(ctx context.Context, client *http.Client, url string) (GarminStatus, error) {
 	// Fetch the HTML content from the URL
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, GarminConnectStatusURI, http.NoBody)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, http.NoBody)
 	if err != nil {
 		return GarminStatus{}, fmt.Errorf("error creating request: %w", err)
 	}
-	resp, err := httpClient.Do(req)
+	resp, err := client.Do(req)
 	if err != nil {
 		return GarminStatus{}, fmt.Errorf("error during http request: %w", err)
 	}
@@ -66,7 +66,7 @@ func FetchStatus() (GarminStatus, error) {
 	}
 
 	// Parse the HTML content with goquery
-	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	doc, err := goquery.NewDocumentFromReader(io.LimitReader(resp.Body, maxBodyBytes))
 	if err != nil {
 		return GarminStatus{}, err
 	}
@@ -74,6 +74,9 @@ func FetchStatus() (GarminStatus, error) {
 	// Extract services from "Platforms" and "Features" categories using the ExtractServices function
 	platforms := extractServices(doc, "#platforms .service")
 	features := extractServices(doc, "#features .service")
+	if len(platforms) == 0 && len(features) == 0 {
+		return GarminStatus{}, ErrNoServices
+	}
 
 	// Create a GarminStatus struct
 	status := GarminStatus{

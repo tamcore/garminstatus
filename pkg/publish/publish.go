@@ -43,13 +43,16 @@ type Publisher struct {
 	published bool // whether gh-pages has been published at least once this run
 
 	// injectable for tests
-	fetch func() (garminstatus.GarminStatus, error)
+	fetch FetchFunc
 	now   func() time.Time
 }
 
+// FetchFunc returns the current Garmin status.
+type FetchFunc func() (garminstatus.GarminStatus, error)
+
 // New builds a Publisher. keyPath enables SSH auth (empty → no auth, e.g. for
 // file:// remotes in tests).
-func New(repoURL, keyPath, workDir string, heartbeat time.Duration) (*Publisher, error) {
+func New(repoURL, keyPath, workDir string, heartbeat time.Duration, fetch FetchFunc) (*Publisher, error) {
 	var auth transport.AuthMethod
 	if keyPath != "" {
 		a, err := sshAuth(keyPath)
@@ -63,7 +66,7 @@ func New(repoURL, keyPath, workDir string, heartbeat time.Duration) (*Publisher,
 		auth:      auth,
 		workDir:   workDir,
 		heartbeat: heartbeat,
-		fetch:     garminstatus.FetchStatus,
+		fetch:     fetch,
 		now:       time.Now,
 	}, nil
 }
